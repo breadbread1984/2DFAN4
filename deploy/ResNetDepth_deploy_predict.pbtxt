@@ -1,0 +1,10100 @@
+op {
+  input: "data"
+  input: "conv1_w"
+  input: "conv1_b"
+  output: "conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 2
+  }
+  arg {
+    name: "pad"
+    i: 3
+  }
+  arg {
+    name: "kernel"
+    i: 7
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "conv1"
+  input: "bn1_scale"
+  input: "bn1_bias"
+  input: "bn1_mean"
+  input: "bn1_var"
+  output: "bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "bn1"
+  output: "bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "bn1"
+  output: "pool1"
+  type: "MaxPool"
+  arg {
+    name: "stride"
+    i: 2
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+  arg {
+    name: "legacy_pad"
+    i: 3
+  }
+}
+op {
+  input: "pool1"
+  input: "pool1_conv1_w"
+  input: "pool1_conv1_b"
+  output: "pool1_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_conv1"
+  input: "pool1_bn1_scale"
+  input: "pool1_bn1_bias"
+  input: "pool1_bn1_mean"
+  input: "pool1_bn1_var"
+  output: "pool1_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_bn1"
+  output: "pool1_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "pool1_bn1"
+  input: "pool1_conv2_w"
+  input: "pool1_conv2_b"
+  output: "pool1_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_conv2"
+  input: "pool1_bn2_scale"
+  input: "pool1_bn2_bias"
+  input: "pool1_bn2_mean"
+  input: "pool1_bn2_var"
+  output: "pool1_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_bn2"
+  output: "pool1_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "pool1_bn2"
+  input: "pool1_conv3_w"
+  input: "pool1_conv3_b"
+  output: "pool1_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_conv3"
+  input: "pool1_bn3_scale"
+  input: "pool1_bn3_bias"
+  input: "pool1_bn3_mean"
+  input: "pool1_bn3_var"
+  output: "pool1_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1"
+  input: "pool1_res_conv_w"
+  input: "pool1_res_conv_b"
+  output: "pool1_res_conv"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_res_conv"
+  input: "pool1_res_bn_scale"
+  input: "pool1_res_bn_bias"
+  input: "pool1_res_bn_mean"
+  input: "pool1_res_bn_var"
+  output: "pool1_res_bn"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_bn3"
+  input: "pool1_res_bn"
+  output: "pool1_block1"
+  type: "Sum"
+}
+op {
+  input: "pool1_block1"
+  output: "pool1_block1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "pool1_block1"
+  input: "pool1_block1_conv1_w"
+  input: "pool1_block1_conv1_b"
+  output: "pool1_block1_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block1_conv1"
+  input: "pool1_block1_bn1_scale"
+  input: "pool1_block1_bn1_bias"
+  input: "pool1_block1_bn1_mean"
+  input: "pool1_block1_bn1_var"
+  output: "pool1_block1_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block1_bn1"
+  output: "pool1_block1_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "pool1_block1_bn1"
+  input: "pool1_block1_conv2_w"
+  input: "pool1_block1_conv2_b"
+  output: "pool1_block1_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block1_conv2"
+  input: "pool1_block1_bn2_scale"
+  input: "pool1_block1_bn2_bias"
+  input: "pool1_block1_bn2_mean"
+  input: "pool1_block1_bn2_var"
+  output: "pool1_block1_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block1_bn2"
+  output: "pool1_block1_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "pool1_block1_bn2"
+  input: "pool1_block1_conv3_w"
+  input: "pool1_block1_conv3_b"
+  output: "pool1_block1_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block1_conv3"
+  input: "pool1_block1_bn3_scale"
+  input: "pool1_block1_bn3_bias"
+  input: "pool1_block1_bn3_mean"
+  input: "pool1_block1_bn3_var"
+  output: "pool1_block1_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block1_bn3"
+  input: "pool1_block1"
+  output: "pool1_block2"
+  type: "Sum"
+}
+op {
+  input: "pool1_block2"
+  output: "pool1_block2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "pool1_block2"
+  input: "pool1_block2_conv1_w"
+  input: "pool1_block2_conv1_b"
+  output: "pool1_block2_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block2_conv1"
+  input: "pool1_block2_bn1_scale"
+  input: "pool1_block2_bn1_bias"
+  input: "pool1_block2_bn1_mean"
+  input: "pool1_block2_bn1_var"
+  output: "pool1_block2_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block2_bn1"
+  output: "pool1_block2_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "pool1_block2_bn1"
+  input: "pool1_block2_conv2_w"
+  input: "pool1_block2_conv2_b"
+  output: "pool1_block2_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block2_conv2"
+  input: "pool1_block2_bn2_scale"
+  input: "pool1_block2_bn2_bias"
+  input: "pool1_block2_bn2_mean"
+  input: "pool1_block2_bn2_var"
+  output: "pool1_block2_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block2_bn2"
+  output: "pool1_block2_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "pool1_block2_bn2"
+  input: "pool1_block2_conv3_w"
+  input: "pool1_block2_conv3_b"
+  output: "pool1_block2_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block2_conv3"
+  input: "pool1_block2_bn3_scale"
+  input: "pool1_block2_bn3_bias"
+  input: "pool1_block2_bn3_mean"
+  input: "pool1_block2_bn3_var"
+  output: "pool1_block2_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "pool1_block2_bn3"
+  input: "pool1_block2"
+  output: "block1"
+  type: "Sum"
+}
+op {
+  input: "block1"
+  output: "block1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1"
+  input: "block1_conv1_w"
+  input: "block1_conv1_b"
+  output: "block1_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_conv1"
+  input: "block1_bn1_scale"
+  input: "block1_bn1_bias"
+  input: "block1_bn1_mean"
+  input: "block1_bn1_var"
+  output: "block1_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_bn1"
+  output: "block1_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_bn1"
+  input: "block1_conv2_w"
+  input: "block1_conv2_b"
+  output: "block1_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 2
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_conv2"
+  input: "block1_bn2_scale"
+  input: "block1_bn2_bias"
+  input: "block1_bn2_mean"
+  input: "block1_bn2_var"
+  output: "block1_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_bn2"
+  output: "block1_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_bn2"
+  input: "block1_conv3_w"
+  input: "block1_conv3_b"
+  output: "block1_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_conv3"
+  input: "block1_bn3_scale"
+  input: "block1_bn3_bias"
+  input: "block1_bn3_mean"
+  input: "block1_bn3_var"
+  output: "block1_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1"
+  input: "block1_res_conv_w"
+  input: "block1_res_conv_b"
+  output: "block1_res_conv"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 2
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_res_conv"
+  input: "block1_res_bn_scale"
+  input: "block1_res_bn_bias"
+  input: "block1_res_bn_mean"
+  input: "block1_res_bn_var"
+  output: "block1_res_bn"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_bn3"
+  input: "block1_res_bn"
+  output: "block1_block1"
+  type: "Sum"
+}
+op {
+  input: "block1_block1"
+  output: "block1_block1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block1"
+  input: "block1_block1_conv1_w"
+  input: "block1_block1_conv1_b"
+  output: "block1_block1_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block1_conv1"
+  input: "block1_block1_bn1_scale"
+  input: "block1_block1_bn1_bias"
+  input: "block1_block1_bn1_mean"
+  input: "block1_block1_bn1_var"
+  output: "block1_block1_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block1_bn1"
+  output: "block1_block1_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block1_bn1"
+  input: "block1_block1_conv2_w"
+  input: "block1_block1_conv2_b"
+  output: "block1_block1_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block1_conv2"
+  input: "block1_block1_bn2_scale"
+  input: "block1_block1_bn2_bias"
+  input: "block1_block1_bn2_mean"
+  input: "block1_block1_bn2_var"
+  output: "block1_block1_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block1_bn2"
+  output: "block1_block1_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block1_bn2"
+  input: "block1_block1_conv3_w"
+  input: "block1_block1_conv3_b"
+  output: "block1_block1_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block1_conv3"
+  input: "block1_block1_bn3_scale"
+  input: "block1_block1_bn3_bias"
+  input: "block1_block1_bn3_mean"
+  input: "block1_block1_bn3_var"
+  output: "block1_block1_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block1_bn3"
+  input: "block1_block1"
+  output: "block1_block2"
+  type: "Sum"
+}
+op {
+  input: "block1_block2"
+  output: "block1_block2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block2"
+  input: "block1_block2_conv1_w"
+  input: "block1_block2_conv1_b"
+  output: "block1_block2_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block2_conv1"
+  input: "block1_block2_bn1_scale"
+  input: "block1_block2_bn1_bias"
+  input: "block1_block2_bn1_mean"
+  input: "block1_block2_bn1_var"
+  output: "block1_block2_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block2_bn1"
+  output: "block1_block2_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block2_bn1"
+  input: "block1_block2_conv2_w"
+  input: "block1_block2_conv2_b"
+  output: "block1_block2_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block2_conv2"
+  input: "block1_block2_bn2_scale"
+  input: "block1_block2_bn2_bias"
+  input: "block1_block2_bn2_mean"
+  input: "block1_block2_bn2_var"
+  output: "block1_block2_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block2_bn2"
+  output: "block1_block2_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block2_bn2"
+  input: "block1_block2_conv3_w"
+  input: "block1_block2_conv3_b"
+  output: "block1_block2_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block2_conv3"
+  input: "block1_block2_bn3_scale"
+  input: "block1_block2_bn3_bias"
+  input: "block1_block2_bn3_mean"
+  input: "block1_block2_bn3_var"
+  output: "block1_block2_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block2_bn3"
+  input: "block1_block2"
+  output: "block1_block3"
+  type: "Sum"
+}
+op {
+  input: "block1_block3"
+  output: "block1_block3"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block3"
+  input: "block1_block3_conv1_w"
+  input: "block1_block3_conv1_b"
+  output: "block1_block3_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block3_conv1"
+  input: "block1_block3_bn1_scale"
+  input: "block1_block3_bn1_bias"
+  input: "block1_block3_bn1_mean"
+  input: "block1_block3_bn1_var"
+  output: "block1_block3_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block3_bn1"
+  output: "block1_block3_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block3_bn1"
+  input: "block1_block3_conv2_w"
+  input: "block1_block3_conv2_b"
+  output: "block1_block3_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block3_conv2"
+  input: "block1_block3_bn2_scale"
+  input: "block1_block3_bn2_bias"
+  input: "block1_block3_bn2_mean"
+  input: "block1_block3_bn2_var"
+  output: "block1_block3_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block3_bn2"
+  output: "block1_block3_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block3_bn2"
+  input: "block1_block3_conv3_w"
+  input: "block1_block3_conv3_b"
+  output: "block1_block3_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block3_conv3"
+  input: "block1_block3_bn3_scale"
+  input: "block1_block3_bn3_bias"
+  input: "block1_block3_bn3_mean"
+  input: "block1_block3_bn3_var"
+  output: "block1_block3_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block3_bn3"
+  input: "block1_block3"
+  output: "block1_block4"
+  type: "Sum"
+}
+op {
+  input: "block1_block4"
+  output: "block1_block4"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block4"
+  input: "block1_block4_conv1_w"
+  input: "block1_block4_conv1_b"
+  output: "block1_block4_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block4_conv1"
+  input: "block1_block4_bn1_scale"
+  input: "block1_block4_bn1_bias"
+  input: "block1_block4_bn1_mean"
+  input: "block1_block4_bn1_var"
+  output: "block1_block4_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block4_bn1"
+  output: "block1_block4_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block4_bn1"
+  input: "block1_block4_conv2_w"
+  input: "block1_block4_conv2_b"
+  output: "block1_block4_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block4_conv2"
+  input: "block1_block4_bn2_scale"
+  input: "block1_block4_bn2_bias"
+  input: "block1_block4_bn2_mean"
+  input: "block1_block4_bn2_var"
+  output: "block1_block4_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block4_bn2"
+  output: "block1_block4_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block4_bn2"
+  input: "block1_block4_conv3_w"
+  input: "block1_block4_conv3_b"
+  output: "block1_block4_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block4_conv3"
+  input: "block1_block4_bn3_scale"
+  input: "block1_block4_bn3_bias"
+  input: "block1_block4_bn3_mean"
+  input: "block1_block4_bn3_var"
+  output: "block1_block4_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block4_bn3"
+  input: "block1_block4"
+  output: "block1_block5"
+  type: "Sum"
+}
+op {
+  input: "block1_block5"
+  output: "block1_block5"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block5"
+  input: "block1_block5_conv1_w"
+  input: "block1_block5_conv1_b"
+  output: "block1_block5_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block5_conv1"
+  input: "block1_block5_bn1_scale"
+  input: "block1_block5_bn1_bias"
+  input: "block1_block5_bn1_mean"
+  input: "block1_block5_bn1_var"
+  output: "block1_block5_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block5_bn1"
+  output: "block1_block5_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block5_bn1"
+  input: "block1_block5_conv2_w"
+  input: "block1_block5_conv2_b"
+  output: "block1_block5_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block5_conv2"
+  input: "block1_block5_bn2_scale"
+  input: "block1_block5_bn2_bias"
+  input: "block1_block5_bn2_mean"
+  input: "block1_block5_bn2_var"
+  output: "block1_block5_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block5_bn2"
+  output: "block1_block5_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block5_bn2"
+  input: "block1_block5_conv3_w"
+  input: "block1_block5_conv3_b"
+  output: "block1_block5_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block5_conv3"
+  input: "block1_block5_bn3_scale"
+  input: "block1_block5_bn3_bias"
+  input: "block1_block5_bn3_mean"
+  input: "block1_block5_bn3_var"
+  output: "block1_block5_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block5_bn3"
+  input: "block1_block5"
+  output: "block1_block6"
+  type: "Sum"
+}
+op {
+  input: "block1_block6"
+  output: "block1_block6"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block6"
+  input: "block1_block6_conv1_w"
+  input: "block1_block6_conv1_b"
+  output: "block1_block6_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block6_conv1"
+  input: "block1_block6_bn1_scale"
+  input: "block1_block6_bn1_bias"
+  input: "block1_block6_bn1_mean"
+  input: "block1_block6_bn1_var"
+  output: "block1_block6_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block6_bn1"
+  output: "block1_block6_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block6_bn1"
+  input: "block1_block6_conv2_w"
+  input: "block1_block6_conv2_b"
+  output: "block1_block6_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block6_conv2"
+  input: "block1_block6_bn2_scale"
+  input: "block1_block6_bn2_bias"
+  input: "block1_block6_bn2_mean"
+  input: "block1_block6_bn2_var"
+  output: "block1_block6_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block6_bn2"
+  output: "block1_block6_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block6_bn2"
+  input: "block1_block6_conv3_w"
+  input: "block1_block6_conv3_b"
+  output: "block1_block6_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block6_conv3"
+  input: "block1_block6_bn3_scale"
+  input: "block1_block6_bn3_bias"
+  input: "block1_block6_bn3_mean"
+  input: "block1_block6_bn3_var"
+  output: "block1_block6_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block6_bn3"
+  input: "block1_block6"
+  output: "block1_block7"
+  type: "Sum"
+}
+op {
+  input: "block1_block7"
+  output: "block1_block7"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block7"
+  input: "block1_block7_conv1_w"
+  input: "block1_block7_conv1_b"
+  output: "block1_block7_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block7_conv1"
+  input: "block1_block7_bn1_scale"
+  input: "block1_block7_bn1_bias"
+  input: "block1_block7_bn1_mean"
+  input: "block1_block7_bn1_var"
+  output: "block1_block7_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block7_bn1"
+  output: "block1_block7_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block7_bn1"
+  input: "block1_block7_conv2_w"
+  input: "block1_block7_conv2_b"
+  output: "block1_block7_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block7_conv2"
+  input: "block1_block7_bn2_scale"
+  input: "block1_block7_bn2_bias"
+  input: "block1_block7_bn2_mean"
+  input: "block1_block7_bn2_var"
+  output: "block1_block7_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block7_bn2"
+  output: "block1_block7_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block1_block7_bn2"
+  input: "block1_block7_conv3_w"
+  input: "block1_block7_conv3_b"
+  output: "block1_block7_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block7_conv3"
+  input: "block1_block7_bn3_scale"
+  input: "block1_block7_bn3_bias"
+  input: "block1_block7_bn3_mean"
+  input: "block1_block7_bn3_var"
+  output: "block1_block7_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block1_block7_bn3"
+  input: "block1_block7"
+  output: "block2"
+  type: "Sum"
+}
+op {
+  input: "block2"
+  output: "block2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2"
+  input: "block2_conv1_w"
+  input: "block2_conv1_b"
+  output: "block2_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_conv1"
+  input: "block2_bn1_scale"
+  input: "block2_bn1_bias"
+  input: "block2_bn1_mean"
+  input: "block2_bn1_var"
+  output: "block2_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_bn1"
+  output: "block2_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_bn1"
+  input: "block2_conv2_w"
+  input: "block2_conv2_b"
+  output: "block2_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 2
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_conv2"
+  input: "block2_bn2_scale"
+  input: "block2_bn2_bias"
+  input: "block2_bn2_mean"
+  input: "block2_bn2_var"
+  output: "block2_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_bn2"
+  output: "block2_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_bn2"
+  input: "block2_conv3_w"
+  input: "block2_conv3_b"
+  output: "block2_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_conv3"
+  input: "block2_bn3_scale"
+  input: "block2_bn3_bias"
+  input: "block2_bn3_mean"
+  input: "block2_bn3_var"
+  output: "block2_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2"
+  input: "block2_res_conv_w"
+  input: "block2_res_conv_b"
+  output: "block2_res_conv"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 2
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_res_conv"
+  input: "block2_res_bn_scale"
+  input: "block2_res_bn_bias"
+  input: "block2_res_bn_mean"
+  input: "block2_res_bn_var"
+  output: "block2_res_bn"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_bn3"
+  input: "block2_res_bn"
+  output: "block2_block1"
+  type: "Sum"
+}
+op {
+  input: "block2_block1"
+  output: "block2_block1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block1"
+  input: "block2_block1_conv1_w"
+  input: "block2_block1_conv1_b"
+  output: "block2_block1_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block1_conv1"
+  input: "block2_block1_bn1_scale"
+  input: "block2_block1_bn1_bias"
+  input: "block2_block1_bn1_mean"
+  input: "block2_block1_bn1_var"
+  output: "block2_block1_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block1_bn1"
+  output: "block2_block1_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block1_bn1"
+  input: "block2_block1_conv2_w"
+  input: "block2_block1_conv2_b"
+  output: "block2_block1_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block1_conv2"
+  input: "block2_block1_bn2_scale"
+  input: "block2_block1_bn2_bias"
+  input: "block2_block1_bn2_mean"
+  input: "block2_block1_bn2_var"
+  output: "block2_block1_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block1_bn2"
+  output: "block2_block1_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block1_bn2"
+  input: "block2_block1_conv3_w"
+  input: "block2_block1_conv3_b"
+  output: "block2_block1_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block1_conv3"
+  input: "block2_block1_bn3_scale"
+  input: "block2_block1_bn3_bias"
+  input: "block2_block1_bn3_mean"
+  input: "block2_block1_bn3_var"
+  output: "block2_block1_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block1_bn3"
+  input: "block2_block1"
+  output: "block2_block2"
+  type: "Sum"
+}
+op {
+  input: "block2_block2"
+  output: "block2_block2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block2"
+  input: "block2_block2_conv1_w"
+  input: "block2_block2_conv1_b"
+  output: "block2_block2_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block2_conv1"
+  input: "block2_block2_bn1_scale"
+  input: "block2_block2_bn1_bias"
+  input: "block2_block2_bn1_mean"
+  input: "block2_block2_bn1_var"
+  output: "block2_block2_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block2_bn1"
+  output: "block2_block2_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block2_bn1"
+  input: "block2_block2_conv2_w"
+  input: "block2_block2_conv2_b"
+  output: "block2_block2_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block2_conv2"
+  input: "block2_block2_bn2_scale"
+  input: "block2_block2_bn2_bias"
+  input: "block2_block2_bn2_mean"
+  input: "block2_block2_bn2_var"
+  output: "block2_block2_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block2_bn2"
+  output: "block2_block2_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block2_bn2"
+  input: "block2_block2_conv3_w"
+  input: "block2_block2_conv3_b"
+  output: "block2_block2_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block2_conv3"
+  input: "block2_block2_bn3_scale"
+  input: "block2_block2_bn3_bias"
+  input: "block2_block2_bn3_mean"
+  input: "block2_block2_bn3_var"
+  output: "block2_block2_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block2_bn3"
+  input: "block2_block2"
+  output: "block2_block3"
+  type: "Sum"
+}
+op {
+  input: "block2_block3"
+  output: "block2_block3"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block3"
+  input: "block2_block3_conv1_w"
+  input: "block2_block3_conv1_b"
+  output: "block2_block3_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block3_conv1"
+  input: "block2_block3_bn1_scale"
+  input: "block2_block3_bn1_bias"
+  input: "block2_block3_bn1_mean"
+  input: "block2_block3_bn1_var"
+  output: "block2_block3_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block3_bn1"
+  output: "block2_block3_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block3_bn1"
+  input: "block2_block3_conv2_w"
+  input: "block2_block3_conv2_b"
+  output: "block2_block3_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block3_conv2"
+  input: "block2_block3_bn2_scale"
+  input: "block2_block3_bn2_bias"
+  input: "block2_block3_bn2_mean"
+  input: "block2_block3_bn2_var"
+  output: "block2_block3_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block3_bn2"
+  output: "block2_block3_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block3_bn2"
+  input: "block2_block3_conv3_w"
+  input: "block2_block3_conv3_b"
+  output: "block2_block3_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block3_conv3"
+  input: "block2_block3_bn3_scale"
+  input: "block2_block3_bn3_bias"
+  input: "block2_block3_bn3_mean"
+  input: "block2_block3_bn3_var"
+  output: "block2_block3_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block3_bn3"
+  input: "block2_block3"
+  output: "block2_block4"
+  type: "Sum"
+}
+op {
+  input: "block2_block4"
+  output: "block2_block4"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block4"
+  input: "block2_block4_conv1_w"
+  input: "block2_block4_conv1_b"
+  output: "block2_block4_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block4_conv1"
+  input: "block2_block4_bn1_scale"
+  input: "block2_block4_bn1_bias"
+  input: "block2_block4_bn1_mean"
+  input: "block2_block4_bn1_var"
+  output: "block2_block4_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block4_bn1"
+  output: "block2_block4_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block4_bn1"
+  input: "block2_block4_conv2_w"
+  input: "block2_block4_conv2_b"
+  output: "block2_block4_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block4_conv2"
+  input: "block2_block4_bn2_scale"
+  input: "block2_block4_bn2_bias"
+  input: "block2_block4_bn2_mean"
+  input: "block2_block4_bn2_var"
+  output: "block2_block4_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block4_bn2"
+  output: "block2_block4_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block4_bn2"
+  input: "block2_block4_conv3_w"
+  input: "block2_block4_conv3_b"
+  output: "block2_block4_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block4_conv3"
+  input: "block2_block4_bn3_scale"
+  input: "block2_block4_bn3_bias"
+  input: "block2_block4_bn3_mean"
+  input: "block2_block4_bn3_var"
+  output: "block2_block4_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block4_bn3"
+  input: "block2_block4"
+  output: "block2_block5"
+  type: "Sum"
+}
+op {
+  input: "block2_block5"
+  output: "block2_block5"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block5"
+  input: "block2_block5_conv1_w"
+  input: "block2_block5_conv1_b"
+  output: "block2_block5_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block5_conv1"
+  input: "block2_block5_bn1_scale"
+  input: "block2_block5_bn1_bias"
+  input: "block2_block5_bn1_mean"
+  input: "block2_block5_bn1_var"
+  output: "block2_block5_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block5_bn1"
+  output: "block2_block5_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block5_bn1"
+  input: "block2_block5_conv2_w"
+  input: "block2_block5_conv2_b"
+  output: "block2_block5_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block5_conv2"
+  input: "block2_block5_bn2_scale"
+  input: "block2_block5_bn2_bias"
+  input: "block2_block5_bn2_mean"
+  input: "block2_block5_bn2_var"
+  output: "block2_block5_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block5_bn2"
+  output: "block2_block5_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block5_bn2"
+  input: "block2_block5_conv3_w"
+  input: "block2_block5_conv3_b"
+  output: "block2_block5_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block5_conv3"
+  input: "block2_block5_bn3_scale"
+  input: "block2_block5_bn3_bias"
+  input: "block2_block5_bn3_mean"
+  input: "block2_block5_bn3_var"
+  output: "block2_block5_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block5_bn3"
+  input: "block2_block5"
+  output: "block2_block6"
+  type: "Sum"
+}
+op {
+  input: "block2_block6"
+  output: "block2_block6"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block6"
+  input: "block2_block6_conv1_w"
+  input: "block2_block6_conv1_b"
+  output: "block2_block6_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block6_conv1"
+  input: "block2_block6_bn1_scale"
+  input: "block2_block6_bn1_bias"
+  input: "block2_block6_bn1_mean"
+  input: "block2_block6_bn1_var"
+  output: "block2_block6_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block6_bn1"
+  output: "block2_block6_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block6_bn1"
+  input: "block2_block6_conv2_w"
+  input: "block2_block6_conv2_b"
+  output: "block2_block6_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block6_conv2"
+  input: "block2_block6_bn2_scale"
+  input: "block2_block6_bn2_bias"
+  input: "block2_block6_bn2_mean"
+  input: "block2_block6_bn2_var"
+  output: "block2_block6_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block6_bn2"
+  output: "block2_block6_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block6_bn2"
+  input: "block2_block6_conv3_w"
+  input: "block2_block6_conv3_b"
+  output: "block2_block6_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block6_conv3"
+  input: "block2_block6_bn3_scale"
+  input: "block2_block6_bn3_bias"
+  input: "block2_block6_bn3_mean"
+  input: "block2_block6_bn3_var"
+  output: "block2_block6_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block6_bn3"
+  input: "block2_block6"
+  output: "block2_block7"
+  type: "Sum"
+}
+op {
+  input: "block2_block7"
+  output: "block2_block7"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block7"
+  input: "block2_block7_conv1_w"
+  input: "block2_block7_conv1_b"
+  output: "block2_block7_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block7_conv1"
+  input: "block2_block7_bn1_scale"
+  input: "block2_block7_bn1_bias"
+  input: "block2_block7_bn1_mean"
+  input: "block2_block7_bn1_var"
+  output: "block2_block7_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block7_bn1"
+  output: "block2_block7_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block7_bn1"
+  input: "block2_block7_conv2_w"
+  input: "block2_block7_conv2_b"
+  output: "block2_block7_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block7_conv2"
+  input: "block2_block7_bn2_scale"
+  input: "block2_block7_bn2_bias"
+  input: "block2_block7_bn2_mean"
+  input: "block2_block7_bn2_var"
+  output: "block2_block7_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block7_bn2"
+  output: "block2_block7_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block7_bn2"
+  input: "block2_block7_conv3_w"
+  input: "block2_block7_conv3_b"
+  output: "block2_block7_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block7_conv3"
+  input: "block2_block7_bn3_scale"
+  input: "block2_block7_bn3_bias"
+  input: "block2_block7_bn3_mean"
+  input: "block2_block7_bn3_var"
+  output: "block2_block7_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block7_bn3"
+  input: "block2_block7"
+  output: "block2_block8"
+  type: "Sum"
+}
+op {
+  input: "block2_block8"
+  output: "block2_block8"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block8"
+  input: "block2_block8_conv1_w"
+  input: "block2_block8_conv1_b"
+  output: "block2_block8_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block8_conv1"
+  input: "block2_block8_bn1_scale"
+  input: "block2_block8_bn1_bias"
+  input: "block2_block8_bn1_mean"
+  input: "block2_block8_bn1_var"
+  output: "block2_block8_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block8_bn1"
+  output: "block2_block8_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block8_bn1"
+  input: "block2_block8_conv2_w"
+  input: "block2_block8_conv2_b"
+  output: "block2_block8_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block8_conv2"
+  input: "block2_block8_bn2_scale"
+  input: "block2_block8_bn2_bias"
+  input: "block2_block8_bn2_mean"
+  input: "block2_block8_bn2_var"
+  output: "block2_block8_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block8_bn2"
+  output: "block2_block8_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block8_bn2"
+  input: "block2_block8_conv3_w"
+  input: "block2_block8_conv3_b"
+  output: "block2_block8_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block8_conv3"
+  input: "block2_block8_bn3_scale"
+  input: "block2_block8_bn3_bias"
+  input: "block2_block8_bn3_mean"
+  input: "block2_block8_bn3_var"
+  output: "block2_block8_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block8_bn3"
+  input: "block2_block8"
+  output: "block2_block9"
+  type: "Sum"
+}
+op {
+  input: "block2_block9"
+  output: "block2_block9"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block9"
+  input: "block2_block9_conv1_w"
+  input: "block2_block9_conv1_b"
+  output: "block2_block9_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block9_conv1"
+  input: "block2_block9_bn1_scale"
+  input: "block2_block9_bn1_bias"
+  input: "block2_block9_bn1_mean"
+  input: "block2_block9_bn1_var"
+  output: "block2_block9_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block9_bn1"
+  output: "block2_block9_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block9_bn1"
+  input: "block2_block9_conv2_w"
+  input: "block2_block9_conv2_b"
+  output: "block2_block9_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block9_conv2"
+  input: "block2_block9_bn2_scale"
+  input: "block2_block9_bn2_bias"
+  input: "block2_block9_bn2_mean"
+  input: "block2_block9_bn2_var"
+  output: "block2_block9_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block9_bn2"
+  output: "block2_block9_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block9_bn2"
+  input: "block2_block9_conv3_w"
+  input: "block2_block9_conv3_b"
+  output: "block2_block9_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block9_conv3"
+  input: "block2_block9_bn3_scale"
+  input: "block2_block9_bn3_bias"
+  input: "block2_block9_bn3_mean"
+  input: "block2_block9_bn3_var"
+  output: "block2_block9_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block9_bn3"
+  input: "block2_block9"
+  output: "block2_block10"
+  type: "Sum"
+}
+op {
+  input: "block2_block10"
+  output: "block2_block10"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block10"
+  input: "block2_block10_conv1_w"
+  input: "block2_block10_conv1_b"
+  output: "block2_block10_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block10_conv1"
+  input: "block2_block10_bn1_scale"
+  input: "block2_block10_bn1_bias"
+  input: "block2_block10_bn1_mean"
+  input: "block2_block10_bn1_var"
+  output: "block2_block10_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block10_bn1"
+  output: "block2_block10_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block10_bn1"
+  input: "block2_block10_conv2_w"
+  input: "block2_block10_conv2_b"
+  output: "block2_block10_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block10_conv2"
+  input: "block2_block10_bn2_scale"
+  input: "block2_block10_bn2_bias"
+  input: "block2_block10_bn2_mean"
+  input: "block2_block10_bn2_var"
+  output: "block2_block10_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block10_bn2"
+  output: "block2_block10_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block10_bn2"
+  input: "block2_block10_conv3_w"
+  input: "block2_block10_conv3_b"
+  output: "block2_block10_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block10_conv3"
+  input: "block2_block10_bn3_scale"
+  input: "block2_block10_bn3_bias"
+  input: "block2_block10_bn3_mean"
+  input: "block2_block10_bn3_var"
+  output: "block2_block10_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block10_bn3"
+  input: "block2_block10"
+  output: "block2_block11"
+  type: "Sum"
+}
+op {
+  input: "block2_block11"
+  output: "block2_block11"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block11"
+  input: "block2_block11_conv1_w"
+  input: "block2_block11_conv1_b"
+  output: "block2_block11_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block11_conv1"
+  input: "block2_block11_bn1_scale"
+  input: "block2_block11_bn1_bias"
+  input: "block2_block11_bn1_mean"
+  input: "block2_block11_bn1_var"
+  output: "block2_block11_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block11_bn1"
+  output: "block2_block11_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block11_bn1"
+  input: "block2_block11_conv2_w"
+  input: "block2_block11_conv2_b"
+  output: "block2_block11_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block11_conv2"
+  input: "block2_block11_bn2_scale"
+  input: "block2_block11_bn2_bias"
+  input: "block2_block11_bn2_mean"
+  input: "block2_block11_bn2_var"
+  output: "block2_block11_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block11_bn2"
+  output: "block2_block11_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block11_bn2"
+  input: "block2_block11_conv3_w"
+  input: "block2_block11_conv3_b"
+  output: "block2_block11_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block11_conv3"
+  input: "block2_block11_bn3_scale"
+  input: "block2_block11_bn3_bias"
+  input: "block2_block11_bn3_mean"
+  input: "block2_block11_bn3_var"
+  output: "block2_block11_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block11_bn3"
+  input: "block2_block11"
+  output: "block2_block12"
+  type: "Sum"
+}
+op {
+  input: "block2_block12"
+  output: "block2_block12"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block12"
+  input: "block2_block12_conv1_w"
+  input: "block2_block12_conv1_b"
+  output: "block2_block12_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block12_conv1"
+  input: "block2_block12_bn1_scale"
+  input: "block2_block12_bn1_bias"
+  input: "block2_block12_bn1_mean"
+  input: "block2_block12_bn1_var"
+  output: "block2_block12_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block12_bn1"
+  output: "block2_block12_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block12_bn1"
+  input: "block2_block12_conv2_w"
+  input: "block2_block12_conv2_b"
+  output: "block2_block12_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block12_conv2"
+  input: "block2_block12_bn2_scale"
+  input: "block2_block12_bn2_bias"
+  input: "block2_block12_bn2_mean"
+  input: "block2_block12_bn2_var"
+  output: "block2_block12_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block12_bn2"
+  output: "block2_block12_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block12_bn2"
+  input: "block2_block12_conv3_w"
+  input: "block2_block12_conv3_b"
+  output: "block2_block12_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block12_conv3"
+  input: "block2_block12_bn3_scale"
+  input: "block2_block12_bn3_bias"
+  input: "block2_block12_bn3_mean"
+  input: "block2_block12_bn3_var"
+  output: "block2_block12_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block12_bn3"
+  input: "block2_block12"
+  output: "block2_block13"
+  type: "Sum"
+}
+op {
+  input: "block2_block13"
+  output: "block2_block13"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block13"
+  input: "block2_block13_conv1_w"
+  input: "block2_block13_conv1_b"
+  output: "block2_block13_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block13_conv1"
+  input: "block2_block13_bn1_scale"
+  input: "block2_block13_bn1_bias"
+  input: "block2_block13_bn1_mean"
+  input: "block2_block13_bn1_var"
+  output: "block2_block13_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block13_bn1"
+  output: "block2_block13_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block13_bn1"
+  input: "block2_block13_conv2_w"
+  input: "block2_block13_conv2_b"
+  output: "block2_block13_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block13_conv2"
+  input: "block2_block13_bn2_scale"
+  input: "block2_block13_bn2_bias"
+  input: "block2_block13_bn2_mean"
+  input: "block2_block13_bn2_var"
+  output: "block2_block13_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block13_bn2"
+  output: "block2_block13_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block13_bn2"
+  input: "block2_block13_conv3_w"
+  input: "block2_block13_conv3_b"
+  output: "block2_block13_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block13_conv3"
+  input: "block2_block13_bn3_scale"
+  input: "block2_block13_bn3_bias"
+  input: "block2_block13_bn3_mean"
+  input: "block2_block13_bn3_var"
+  output: "block2_block13_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block13_bn3"
+  input: "block2_block13"
+  output: "block2_block14"
+  type: "Sum"
+}
+op {
+  input: "block2_block14"
+  output: "block2_block14"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block14"
+  input: "block2_block14_conv1_w"
+  input: "block2_block14_conv1_b"
+  output: "block2_block14_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block14_conv1"
+  input: "block2_block14_bn1_scale"
+  input: "block2_block14_bn1_bias"
+  input: "block2_block14_bn1_mean"
+  input: "block2_block14_bn1_var"
+  output: "block2_block14_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block14_bn1"
+  output: "block2_block14_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block14_bn1"
+  input: "block2_block14_conv2_w"
+  input: "block2_block14_conv2_b"
+  output: "block2_block14_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block14_conv2"
+  input: "block2_block14_bn2_scale"
+  input: "block2_block14_bn2_bias"
+  input: "block2_block14_bn2_mean"
+  input: "block2_block14_bn2_var"
+  output: "block2_block14_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block14_bn2"
+  output: "block2_block14_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block14_bn2"
+  input: "block2_block14_conv3_w"
+  input: "block2_block14_conv3_b"
+  output: "block2_block14_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block14_conv3"
+  input: "block2_block14_bn3_scale"
+  input: "block2_block14_bn3_bias"
+  input: "block2_block14_bn3_mean"
+  input: "block2_block14_bn3_var"
+  output: "block2_block14_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block14_bn3"
+  input: "block2_block14"
+  output: "block2_block15"
+  type: "Sum"
+}
+op {
+  input: "block2_block15"
+  output: "block2_block15"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block15"
+  input: "block2_block15_conv1_w"
+  input: "block2_block15_conv1_b"
+  output: "block2_block15_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block15_conv1"
+  input: "block2_block15_bn1_scale"
+  input: "block2_block15_bn1_bias"
+  input: "block2_block15_bn1_mean"
+  input: "block2_block15_bn1_var"
+  output: "block2_block15_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block15_bn1"
+  output: "block2_block15_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block15_bn1"
+  input: "block2_block15_conv2_w"
+  input: "block2_block15_conv2_b"
+  output: "block2_block15_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block15_conv2"
+  input: "block2_block15_bn2_scale"
+  input: "block2_block15_bn2_bias"
+  input: "block2_block15_bn2_mean"
+  input: "block2_block15_bn2_var"
+  output: "block2_block15_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block15_bn2"
+  output: "block2_block15_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block15_bn2"
+  input: "block2_block15_conv3_w"
+  input: "block2_block15_conv3_b"
+  output: "block2_block15_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block15_conv3"
+  input: "block2_block15_bn3_scale"
+  input: "block2_block15_bn3_bias"
+  input: "block2_block15_bn3_mean"
+  input: "block2_block15_bn3_var"
+  output: "block2_block15_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block15_bn3"
+  input: "block2_block15"
+  output: "block2_block16"
+  type: "Sum"
+}
+op {
+  input: "block2_block16"
+  output: "block2_block16"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block16"
+  input: "block2_block16_conv1_w"
+  input: "block2_block16_conv1_b"
+  output: "block2_block16_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block16_conv1"
+  input: "block2_block16_bn1_scale"
+  input: "block2_block16_bn1_bias"
+  input: "block2_block16_bn1_mean"
+  input: "block2_block16_bn1_var"
+  output: "block2_block16_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block16_bn1"
+  output: "block2_block16_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block16_bn1"
+  input: "block2_block16_conv2_w"
+  input: "block2_block16_conv2_b"
+  output: "block2_block16_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block16_conv2"
+  input: "block2_block16_bn2_scale"
+  input: "block2_block16_bn2_bias"
+  input: "block2_block16_bn2_mean"
+  input: "block2_block16_bn2_var"
+  output: "block2_block16_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block16_bn2"
+  output: "block2_block16_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block16_bn2"
+  input: "block2_block16_conv3_w"
+  input: "block2_block16_conv3_b"
+  output: "block2_block16_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block16_conv3"
+  input: "block2_block16_bn3_scale"
+  input: "block2_block16_bn3_bias"
+  input: "block2_block16_bn3_mean"
+  input: "block2_block16_bn3_var"
+  output: "block2_block16_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block16_bn3"
+  input: "block2_block16"
+  output: "block2_block17"
+  type: "Sum"
+}
+op {
+  input: "block2_block17"
+  output: "block2_block17"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block17"
+  input: "block2_block17_conv1_w"
+  input: "block2_block17_conv1_b"
+  output: "block2_block17_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block17_conv1"
+  input: "block2_block17_bn1_scale"
+  input: "block2_block17_bn1_bias"
+  input: "block2_block17_bn1_mean"
+  input: "block2_block17_bn1_var"
+  output: "block2_block17_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block17_bn1"
+  output: "block2_block17_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block17_bn1"
+  input: "block2_block17_conv2_w"
+  input: "block2_block17_conv2_b"
+  output: "block2_block17_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block17_conv2"
+  input: "block2_block17_bn2_scale"
+  input: "block2_block17_bn2_bias"
+  input: "block2_block17_bn2_mean"
+  input: "block2_block17_bn2_var"
+  output: "block2_block17_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block17_bn2"
+  output: "block2_block17_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block17_bn2"
+  input: "block2_block17_conv3_w"
+  input: "block2_block17_conv3_b"
+  output: "block2_block17_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block17_conv3"
+  input: "block2_block17_bn3_scale"
+  input: "block2_block17_bn3_bias"
+  input: "block2_block17_bn3_mean"
+  input: "block2_block17_bn3_var"
+  output: "block2_block17_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block17_bn3"
+  input: "block2_block17"
+  output: "block2_block18"
+  type: "Sum"
+}
+op {
+  input: "block2_block18"
+  output: "block2_block18"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block18"
+  input: "block2_block18_conv1_w"
+  input: "block2_block18_conv1_b"
+  output: "block2_block18_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block18_conv1"
+  input: "block2_block18_bn1_scale"
+  input: "block2_block18_bn1_bias"
+  input: "block2_block18_bn1_mean"
+  input: "block2_block18_bn1_var"
+  output: "block2_block18_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block18_bn1"
+  output: "block2_block18_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block18_bn1"
+  input: "block2_block18_conv2_w"
+  input: "block2_block18_conv2_b"
+  output: "block2_block18_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block18_conv2"
+  input: "block2_block18_bn2_scale"
+  input: "block2_block18_bn2_bias"
+  input: "block2_block18_bn2_mean"
+  input: "block2_block18_bn2_var"
+  output: "block2_block18_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block18_bn2"
+  output: "block2_block18_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block18_bn2"
+  input: "block2_block18_conv3_w"
+  input: "block2_block18_conv3_b"
+  output: "block2_block18_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block18_conv3"
+  input: "block2_block18_bn3_scale"
+  input: "block2_block18_bn3_bias"
+  input: "block2_block18_bn3_mean"
+  input: "block2_block18_bn3_var"
+  output: "block2_block18_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block18_bn3"
+  input: "block2_block18"
+  output: "block2_block19"
+  type: "Sum"
+}
+op {
+  input: "block2_block19"
+  output: "block2_block19"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block19"
+  input: "block2_block19_conv1_w"
+  input: "block2_block19_conv1_b"
+  output: "block2_block19_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block19_conv1"
+  input: "block2_block19_bn1_scale"
+  input: "block2_block19_bn1_bias"
+  input: "block2_block19_bn1_mean"
+  input: "block2_block19_bn1_var"
+  output: "block2_block19_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block19_bn1"
+  output: "block2_block19_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block19_bn1"
+  input: "block2_block19_conv2_w"
+  input: "block2_block19_conv2_b"
+  output: "block2_block19_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block19_conv2"
+  input: "block2_block19_bn2_scale"
+  input: "block2_block19_bn2_bias"
+  input: "block2_block19_bn2_mean"
+  input: "block2_block19_bn2_var"
+  output: "block2_block19_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block19_bn2"
+  output: "block2_block19_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block19_bn2"
+  input: "block2_block19_conv3_w"
+  input: "block2_block19_conv3_b"
+  output: "block2_block19_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block19_conv3"
+  input: "block2_block19_bn3_scale"
+  input: "block2_block19_bn3_bias"
+  input: "block2_block19_bn3_mean"
+  input: "block2_block19_bn3_var"
+  output: "block2_block19_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block19_bn3"
+  input: "block2_block19"
+  output: "block2_block20"
+  type: "Sum"
+}
+op {
+  input: "block2_block20"
+  output: "block2_block20"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block20"
+  input: "block2_block20_conv1_w"
+  input: "block2_block20_conv1_b"
+  output: "block2_block20_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block20_conv1"
+  input: "block2_block20_bn1_scale"
+  input: "block2_block20_bn1_bias"
+  input: "block2_block20_bn1_mean"
+  input: "block2_block20_bn1_var"
+  output: "block2_block20_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block20_bn1"
+  output: "block2_block20_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block20_bn1"
+  input: "block2_block20_conv2_w"
+  input: "block2_block20_conv2_b"
+  output: "block2_block20_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block20_conv2"
+  input: "block2_block20_bn2_scale"
+  input: "block2_block20_bn2_bias"
+  input: "block2_block20_bn2_mean"
+  input: "block2_block20_bn2_var"
+  output: "block2_block20_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block20_bn2"
+  output: "block2_block20_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block20_bn2"
+  input: "block2_block20_conv3_w"
+  input: "block2_block20_conv3_b"
+  output: "block2_block20_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block20_conv3"
+  input: "block2_block20_bn3_scale"
+  input: "block2_block20_bn3_bias"
+  input: "block2_block20_bn3_mean"
+  input: "block2_block20_bn3_var"
+  output: "block2_block20_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block20_bn3"
+  input: "block2_block20"
+  output: "block2_block21"
+  type: "Sum"
+}
+op {
+  input: "block2_block21"
+  output: "block2_block21"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block21"
+  input: "block2_block21_conv1_w"
+  input: "block2_block21_conv1_b"
+  output: "block2_block21_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block21_conv1"
+  input: "block2_block21_bn1_scale"
+  input: "block2_block21_bn1_bias"
+  input: "block2_block21_bn1_mean"
+  input: "block2_block21_bn1_var"
+  output: "block2_block21_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block21_bn1"
+  output: "block2_block21_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block21_bn1"
+  input: "block2_block21_conv2_w"
+  input: "block2_block21_conv2_b"
+  output: "block2_block21_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block21_conv2"
+  input: "block2_block21_bn2_scale"
+  input: "block2_block21_bn2_bias"
+  input: "block2_block21_bn2_mean"
+  input: "block2_block21_bn2_var"
+  output: "block2_block21_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block21_bn2"
+  output: "block2_block21_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block21_bn2"
+  input: "block2_block21_conv3_w"
+  input: "block2_block21_conv3_b"
+  output: "block2_block21_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block21_conv3"
+  input: "block2_block21_bn3_scale"
+  input: "block2_block21_bn3_bias"
+  input: "block2_block21_bn3_mean"
+  input: "block2_block21_bn3_var"
+  output: "block2_block21_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block21_bn3"
+  input: "block2_block21"
+  output: "block2_block22"
+  type: "Sum"
+}
+op {
+  input: "block2_block22"
+  output: "block2_block22"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block22"
+  input: "block2_block22_conv1_w"
+  input: "block2_block22_conv1_b"
+  output: "block2_block22_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block22_conv1"
+  input: "block2_block22_bn1_scale"
+  input: "block2_block22_bn1_bias"
+  input: "block2_block22_bn1_mean"
+  input: "block2_block22_bn1_var"
+  output: "block2_block22_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block22_bn1"
+  output: "block2_block22_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block22_bn1"
+  input: "block2_block22_conv2_w"
+  input: "block2_block22_conv2_b"
+  output: "block2_block22_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block22_conv2"
+  input: "block2_block22_bn2_scale"
+  input: "block2_block22_bn2_bias"
+  input: "block2_block22_bn2_mean"
+  input: "block2_block22_bn2_var"
+  output: "block2_block22_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block22_bn2"
+  output: "block2_block22_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block22_bn2"
+  input: "block2_block22_conv3_w"
+  input: "block2_block22_conv3_b"
+  output: "block2_block22_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block22_conv3"
+  input: "block2_block22_bn3_scale"
+  input: "block2_block22_bn3_bias"
+  input: "block2_block22_bn3_mean"
+  input: "block2_block22_bn3_var"
+  output: "block2_block22_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block22_bn3"
+  input: "block2_block22"
+  output: "block2_block23"
+  type: "Sum"
+}
+op {
+  input: "block2_block23"
+  output: "block2_block23"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block23"
+  input: "block2_block23_conv1_w"
+  input: "block2_block23_conv1_b"
+  output: "block2_block23_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block23_conv1"
+  input: "block2_block23_bn1_scale"
+  input: "block2_block23_bn1_bias"
+  input: "block2_block23_bn1_mean"
+  input: "block2_block23_bn1_var"
+  output: "block2_block23_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block23_bn1"
+  output: "block2_block23_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block23_bn1"
+  input: "block2_block23_conv2_w"
+  input: "block2_block23_conv2_b"
+  output: "block2_block23_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block23_conv2"
+  input: "block2_block23_bn2_scale"
+  input: "block2_block23_bn2_bias"
+  input: "block2_block23_bn2_mean"
+  input: "block2_block23_bn2_var"
+  output: "block2_block23_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block23_bn2"
+  output: "block2_block23_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block23_bn2"
+  input: "block2_block23_conv3_w"
+  input: "block2_block23_conv3_b"
+  output: "block2_block23_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block23_conv3"
+  input: "block2_block23_bn3_scale"
+  input: "block2_block23_bn3_bias"
+  input: "block2_block23_bn3_mean"
+  input: "block2_block23_bn3_var"
+  output: "block2_block23_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block23_bn3"
+  input: "block2_block23"
+  output: "block2_block24"
+  type: "Sum"
+}
+op {
+  input: "block2_block24"
+  output: "block2_block24"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block24"
+  input: "block2_block24_conv1_w"
+  input: "block2_block24_conv1_b"
+  output: "block2_block24_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block24_conv1"
+  input: "block2_block24_bn1_scale"
+  input: "block2_block24_bn1_bias"
+  input: "block2_block24_bn1_mean"
+  input: "block2_block24_bn1_var"
+  output: "block2_block24_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block24_bn1"
+  output: "block2_block24_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block24_bn1"
+  input: "block2_block24_conv2_w"
+  input: "block2_block24_conv2_b"
+  output: "block2_block24_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block24_conv2"
+  input: "block2_block24_bn2_scale"
+  input: "block2_block24_bn2_bias"
+  input: "block2_block24_bn2_mean"
+  input: "block2_block24_bn2_var"
+  output: "block2_block24_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block24_bn2"
+  output: "block2_block24_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block24_bn2"
+  input: "block2_block24_conv3_w"
+  input: "block2_block24_conv3_b"
+  output: "block2_block24_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block24_conv3"
+  input: "block2_block24_bn3_scale"
+  input: "block2_block24_bn3_bias"
+  input: "block2_block24_bn3_mean"
+  input: "block2_block24_bn3_var"
+  output: "block2_block24_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block24_bn3"
+  input: "block2_block24"
+  output: "block2_block25"
+  type: "Sum"
+}
+op {
+  input: "block2_block25"
+  output: "block2_block25"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block25"
+  input: "block2_block25_conv1_w"
+  input: "block2_block25_conv1_b"
+  output: "block2_block25_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block25_conv1"
+  input: "block2_block25_bn1_scale"
+  input: "block2_block25_bn1_bias"
+  input: "block2_block25_bn1_mean"
+  input: "block2_block25_bn1_var"
+  output: "block2_block25_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block25_bn1"
+  output: "block2_block25_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block25_bn1"
+  input: "block2_block25_conv2_w"
+  input: "block2_block25_conv2_b"
+  output: "block2_block25_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block25_conv2"
+  input: "block2_block25_bn2_scale"
+  input: "block2_block25_bn2_bias"
+  input: "block2_block25_bn2_mean"
+  input: "block2_block25_bn2_var"
+  output: "block2_block25_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block25_bn2"
+  output: "block2_block25_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block25_bn2"
+  input: "block2_block25_conv3_w"
+  input: "block2_block25_conv3_b"
+  output: "block2_block25_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block25_conv3"
+  input: "block2_block25_bn3_scale"
+  input: "block2_block25_bn3_bias"
+  input: "block2_block25_bn3_mean"
+  input: "block2_block25_bn3_var"
+  output: "block2_block25_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block25_bn3"
+  input: "block2_block25"
+  output: "block2_block26"
+  type: "Sum"
+}
+op {
+  input: "block2_block26"
+  output: "block2_block26"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block26"
+  input: "block2_block26_conv1_w"
+  input: "block2_block26_conv1_b"
+  output: "block2_block26_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block26_conv1"
+  input: "block2_block26_bn1_scale"
+  input: "block2_block26_bn1_bias"
+  input: "block2_block26_bn1_mean"
+  input: "block2_block26_bn1_var"
+  output: "block2_block26_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block26_bn1"
+  output: "block2_block26_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block26_bn1"
+  input: "block2_block26_conv2_w"
+  input: "block2_block26_conv2_b"
+  output: "block2_block26_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block26_conv2"
+  input: "block2_block26_bn2_scale"
+  input: "block2_block26_bn2_bias"
+  input: "block2_block26_bn2_mean"
+  input: "block2_block26_bn2_var"
+  output: "block2_block26_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block26_bn2"
+  output: "block2_block26_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block26_bn2"
+  input: "block2_block26_conv3_w"
+  input: "block2_block26_conv3_b"
+  output: "block2_block26_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block26_conv3"
+  input: "block2_block26_bn3_scale"
+  input: "block2_block26_bn3_bias"
+  input: "block2_block26_bn3_mean"
+  input: "block2_block26_bn3_var"
+  output: "block2_block26_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block26_bn3"
+  input: "block2_block26"
+  output: "block2_block27"
+  type: "Sum"
+}
+op {
+  input: "block2_block27"
+  output: "block2_block27"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block27"
+  input: "block2_block27_conv1_w"
+  input: "block2_block27_conv1_b"
+  output: "block2_block27_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block27_conv1"
+  input: "block2_block27_bn1_scale"
+  input: "block2_block27_bn1_bias"
+  input: "block2_block27_bn1_mean"
+  input: "block2_block27_bn1_var"
+  output: "block2_block27_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block27_bn1"
+  output: "block2_block27_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block27_bn1"
+  input: "block2_block27_conv2_w"
+  input: "block2_block27_conv2_b"
+  output: "block2_block27_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block27_conv2"
+  input: "block2_block27_bn2_scale"
+  input: "block2_block27_bn2_bias"
+  input: "block2_block27_bn2_mean"
+  input: "block2_block27_bn2_var"
+  output: "block2_block27_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block27_bn2"
+  output: "block2_block27_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block27_bn2"
+  input: "block2_block27_conv3_w"
+  input: "block2_block27_conv3_b"
+  output: "block2_block27_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block27_conv3"
+  input: "block2_block27_bn3_scale"
+  input: "block2_block27_bn3_bias"
+  input: "block2_block27_bn3_mean"
+  input: "block2_block27_bn3_var"
+  output: "block2_block27_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block27_bn3"
+  input: "block2_block27"
+  output: "block2_block28"
+  type: "Sum"
+}
+op {
+  input: "block2_block28"
+  output: "block2_block28"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block28"
+  input: "block2_block28_conv1_w"
+  input: "block2_block28_conv1_b"
+  output: "block2_block28_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block28_conv1"
+  input: "block2_block28_bn1_scale"
+  input: "block2_block28_bn1_bias"
+  input: "block2_block28_bn1_mean"
+  input: "block2_block28_bn1_var"
+  output: "block2_block28_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block28_bn1"
+  output: "block2_block28_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block28_bn1"
+  input: "block2_block28_conv2_w"
+  input: "block2_block28_conv2_b"
+  output: "block2_block28_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block28_conv2"
+  input: "block2_block28_bn2_scale"
+  input: "block2_block28_bn2_bias"
+  input: "block2_block28_bn2_mean"
+  input: "block2_block28_bn2_var"
+  output: "block2_block28_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block28_bn2"
+  output: "block2_block28_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block28_bn2"
+  input: "block2_block28_conv3_w"
+  input: "block2_block28_conv3_b"
+  output: "block2_block28_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block28_conv3"
+  input: "block2_block28_bn3_scale"
+  input: "block2_block28_bn3_bias"
+  input: "block2_block28_bn3_mean"
+  input: "block2_block28_bn3_var"
+  output: "block2_block28_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block28_bn3"
+  input: "block2_block28"
+  output: "block2_block29"
+  type: "Sum"
+}
+op {
+  input: "block2_block29"
+  output: "block2_block29"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block29"
+  input: "block2_block29_conv1_w"
+  input: "block2_block29_conv1_b"
+  output: "block2_block29_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block29_conv1"
+  input: "block2_block29_bn1_scale"
+  input: "block2_block29_bn1_bias"
+  input: "block2_block29_bn1_mean"
+  input: "block2_block29_bn1_var"
+  output: "block2_block29_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block29_bn1"
+  output: "block2_block29_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block29_bn1"
+  input: "block2_block29_conv2_w"
+  input: "block2_block29_conv2_b"
+  output: "block2_block29_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block29_conv2"
+  input: "block2_block29_bn2_scale"
+  input: "block2_block29_bn2_bias"
+  input: "block2_block29_bn2_mean"
+  input: "block2_block29_bn2_var"
+  output: "block2_block29_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block29_bn2"
+  output: "block2_block29_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block29_bn2"
+  input: "block2_block29_conv3_w"
+  input: "block2_block29_conv3_b"
+  output: "block2_block29_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block29_conv3"
+  input: "block2_block29_bn3_scale"
+  input: "block2_block29_bn3_bias"
+  input: "block2_block29_bn3_mean"
+  input: "block2_block29_bn3_var"
+  output: "block2_block29_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block29_bn3"
+  input: "block2_block29"
+  output: "block2_block30"
+  type: "Sum"
+}
+op {
+  input: "block2_block30"
+  output: "block2_block30"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block30"
+  input: "block2_block30_conv1_w"
+  input: "block2_block30_conv1_b"
+  output: "block2_block30_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block30_conv1"
+  input: "block2_block30_bn1_scale"
+  input: "block2_block30_bn1_bias"
+  input: "block2_block30_bn1_mean"
+  input: "block2_block30_bn1_var"
+  output: "block2_block30_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block30_bn1"
+  output: "block2_block30_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block30_bn1"
+  input: "block2_block30_conv2_w"
+  input: "block2_block30_conv2_b"
+  output: "block2_block30_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block30_conv2"
+  input: "block2_block30_bn2_scale"
+  input: "block2_block30_bn2_bias"
+  input: "block2_block30_bn2_mean"
+  input: "block2_block30_bn2_var"
+  output: "block2_block30_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block30_bn2"
+  output: "block2_block30_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block30_bn2"
+  input: "block2_block30_conv3_w"
+  input: "block2_block30_conv3_b"
+  output: "block2_block30_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block30_conv3"
+  input: "block2_block30_bn3_scale"
+  input: "block2_block30_bn3_bias"
+  input: "block2_block30_bn3_mean"
+  input: "block2_block30_bn3_var"
+  output: "block2_block30_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block30_bn3"
+  input: "block2_block30"
+  output: "block2_block31"
+  type: "Sum"
+}
+op {
+  input: "block2_block31"
+  output: "block2_block31"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block31"
+  input: "block2_block31_conv1_w"
+  input: "block2_block31_conv1_b"
+  output: "block2_block31_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block31_conv1"
+  input: "block2_block31_bn1_scale"
+  input: "block2_block31_bn1_bias"
+  input: "block2_block31_bn1_mean"
+  input: "block2_block31_bn1_var"
+  output: "block2_block31_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block31_bn1"
+  output: "block2_block31_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block31_bn1"
+  input: "block2_block31_conv2_w"
+  input: "block2_block31_conv2_b"
+  output: "block2_block31_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block31_conv2"
+  input: "block2_block31_bn2_scale"
+  input: "block2_block31_bn2_bias"
+  input: "block2_block31_bn2_mean"
+  input: "block2_block31_bn2_var"
+  output: "block2_block31_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block31_bn2"
+  output: "block2_block31_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block31_bn2"
+  input: "block2_block31_conv3_w"
+  input: "block2_block31_conv3_b"
+  output: "block2_block31_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block31_conv3"
+  input: "block2_block31_bn3_scale"
+  input: "block2_block31_bn3_bias"
+  input: "block2_block31_bn3_mean"
+  input: "block2_block31_bn3_var"
+  output: "block2_block31_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block31_bn3"
+  input: "block2_block31"
+  output: "block2_block32"
+  type: "Sum"
+}
+op {
+  input: "block2_block32"
+  output: "block2_block32"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block32"
+  input: "block2_block32_conv1_w"
+  input: "block2_block32_conv1_b"
+  output: "block2_block32_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block32_conv1"
+  input: "block2_block32_bn1_scale"
+  input: "block2_block32_bn1_bias"
+  input: "block2_block32_bn1_mean"
+  input: "block2_block32_bn1_var"
+  output: "block2_block32_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block32_bn1"
+  output: "block2_block32_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block32_bn1"
+  input: "block2_block32_conv2_w"
+  input: "block2_block32_conv2_b"
+  output: "block2_block32_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block32_conv2"
+  input: "block2_block32_bn2_scale"
+  input: "block2_block32_bn2_bias"
+  input: "block2_block32_bn2_mean"
+  input: "block2_block32_bn2_var"
+  output: "block2_block32_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block32_bn2"
+  output: "block2_block32_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block32_bn2"
+  input: "block2_block32_conv3_w"
+  input: "block2_block32_conv3_b"
+  output: "block2_block32_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block32_conv3"
+  input: "block2_block32_bn3_scale"
+  input: "block2_block32_bn3_bias"
+  input: "block2_block32_bn3_mean"
+  input: "block2_block32_bn3_var"
+  output: "block2_block32_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block32_bn3"
+  input: "block2_block32"
+  output: "block2_block33"
+  type: "Sum"
+}
+op {
+  input: "block2_block33"
+  output: "block2_block33"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block33"
+  input: "block2_block33_conv1_w"
+  input: "block2_block33_conv1_b"
+  output: "block2_block33_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block33_conv1"
+  input: "block2_block33_bn1_scale"
+  input: "block2_block33_bn1_bias"
+  input: "block2_block33_bn1_mean"
+  input: "block2_block33_bn1_var"
+  output: "block2_block33_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block33_bn1"
+  output: "block2_block33_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block33_bn1"
+  input: "block2_block33_conv2_w"
+  input: "block2_block33_conv2_b"
+  output: "block2_block33_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block33_conv2"
+  input: "block2_block33_bn2_scale"
+  input: "block2_block33_bn2_bias"
+  input: "block2_block33_bn2_mean"
+  input: "block2_block33_bn2_var"
+  output: "block2_block33_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block33_bn2"
+  output: "block2_block33_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block33_bn2"
+  input: "block2_block33_conv3_w"
+  input: "block2_block33_conv3_b"
+  output: "block2_block33_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block33_conv3"
+  input: "block2_block33_bn3_scale"
+  input: "block2_block33_bn3_bias"
+  input: "block2_block33_bn3_mean"
+  input: "block2_block33_bn3_var"
+  output: "block2_block33_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block33_bn3"
+  input: "block2_block33"
+  output: "block2_block34"
+  type: "Sum"
+}
+op {
+  input: "block2_block34"
+  output: "block2_block34"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block34"
+  input: "block2_block34_conv1_w"
+  input: "block2_block34_conv1_b"
+  output: "block2_block34_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block34_conv1"
+  input: "block2_block34_bn1_scale"
+  input: "block2_block34_bn1_bias"
+  input: "block2_block34_bn1_mean"
+  input: "block2_block34_bn1_var"
+  output: "block2_block34_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block34_bn1"
+  output: "block2_block34_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block34_bn1"
+  input: "block2_block34_conv2_w"
+  input: "block2_block34_conv2_b"
+  output: "block2_block34_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block34_conv2"
+  input: "block2_block34_bn2_scale"
+  input: "block2_block34_bn2_bias"
+  input: "block2_block34_bn2_mean"
+  input: "block2_block34_bn2_var"
+  output: "block2_block34_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block34_bn2"
+  output: "block2_block34_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block34_bn2"
+  input: "block2_block34_conv3_w"
+  input: "block2_block34_conv3_b"
+  output: "block2_block34_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block34_conv3"
+  input: "block2_block34_bn3_scale"
+  input: "block2_block34_bn3_bias"
+  input: "block2_block34_bn3_mean"
+  input: "block2_block34_bn3_var"
+  output: "block2_block34_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block34_bn3"
+  input: "block2_block34"
+  output: "block2_block35"
+  type: "Sum"
+}
+op {
+  input: "block2_block35"
+  output: "block2_block35"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block35"
+  input: "block2_block35_conv1_w"
+  input: "block2_block35_conv1_b"
+  output: "block2_block35_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block35_conv1"
+  input: "block2_block35_bn1_scale"
+  input: "block2_block35_bn1_bias"
+  input: "block2_block35_bn1_mean"
+  input: "block2_block35_bn1_var"
+  output: "block2_block35_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block35_bn1"
+  output: "block2_block35_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block35_bn1"
+  input: "block2_block35_conv2_w"
+  input: "block2_block35_conv2_b"
+  output: "block2_block35_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block35_conv2"
+  input: "block2_block35_bn2_scale"
+  input: "block2_block35_bn2_bias"
+  input: "block2_block35_bn2_mean"
+  input: "block2_block35_bn2_var"
+  output: "block2_block35_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block35_bn2"
+  output: "block2_block35_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block2_block35_bn2"
+  input: "block2_block35_conv3_w"
+  input: "block2_block35_conv3_b"
+  output: "block2_block35_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block35_conv3"
+  input: "block2_block35_bn3_scale"
+  input: "block2_block35_bn3_bias"
+  input: "block2_block35_bn3_mean"
+  input: "block2_block35_bn3_var"
+  output: "block2_block35_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block2_block35_bn3"
+  input: "block2_block35"
+  output: "block3"
+  type: "Sum"
+}
+op {
+  input: "block3"
+  output: "block3"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block3"
+  input: "block3_conv1_w"
+  input: "block3_conv1_b"
+  output: "block3_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_conv1"
+  input: "block3_bn1_scale"
+  input: "block3_bn1_bias"
+  input: "block3_bn1_mean"
+  input: "block3_bn1_var"
+  output: "block3_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_bn1"
+  output: "block3_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block3_bn1"
+  input: "block3_conv2_w"
+  input: "block3_conv2_b"
+  output: "block3_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 2
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_conv2"
+  input: "block3_bn2_scale"
+  input: "block3_bn2_bias"
+  input: "block3_bn2_mean"
+  input: "block3_bn2_var"
+  output: "block3_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_bn2"
+  output: "block3_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block3_bn2"
+  input: "block3_conv3_w"
+  input: "block3_conv3_b"
+  output: "block3_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_conv3"
+  input: "block3_bn3_scale"
+  input: "block3_bn3_bias"
+  input: "block3_bn3_mean"
+  input: "block3_bn3_var"
+  output: "block3_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3"
+  input: "block3_res_conv_w"
+  input: "block3_res_conv_b"
+  output: "block3_res_conv"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 2
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_res_conv"
+  input: "block3_res_bn_scale"
+  input: "block3_res_bn_bias"
+  input: "block3_res_bn_mean"
+  input: "block3_res_bn_var"
+  output: "block3_res_bn"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_bn3"
+  input: "block3_res_bn"
+  output: "block3_block1"
+  type: "Sum"
+}
+op {
+  input: "block3_block1"
+  output: "block3_block1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block3_block1"
+  input: "block3_block1_conv1_w"
+  input: "block3_block1_conv1_b"
+  output: "block3_block1_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block1_conv1"
+  input: "block3_block1_bn1_scale"
+  input: "block3_block1_bn1_bias"
+  input: "block3_block1_bn1_mean"
+  input: "block3_block1_bn1_var"
+  output: "block3_block1_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block1_bn1"
+  output: "block3_block1_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block3_block1_bn1"
+  input: "block3_block1_conv2_w"
+  input: "block3_block1_conv2_b"
+  output: "block3_block1_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block1_conv2"
+  input: "block3_block1_bn2_scale"
+  input: "block3_block1_bn2_bias"
+  input: "block3_block1_bn2_mean"
+  input: "block3_block1_bn2_var"
+  output: "block3_block1_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block1_bn2"
+  output: "block3_block1_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block3_block1_bn2"
+  input: "block3_block1_conv3_w"
+  input: "block3_block1_conv3_b"
+  output: "block3_block1_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block1_conv3"
+  input: "block3_block1_bn3_scale"
+  input: "block3_block1_bn3_bias"
+  input: "block3_block1_bn3_mean"
+  input: "block3_block1_bn3_var"
+  output: "block3_block1_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block1_bn3"
+  input: "block3_block1"
+  output: "block3_block2"
+  type: "Sum"
+}
+op {
+  input: "block3_block2"
+  output: "block3_block2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block3_block2"
+  input: "block3_block2_conv1_w"
+  input: "block3_block2_conv1_b"
+  output: "block3_block2_conv1"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block2_conv1"
+  input: "block3_block2_bn1_scale"
+  input: "block3_block2_bn1_bias"
+  input: "block3_block2_bn1_mean"
+  input: "block3_block2_bn1_var"
+  output: "block3_block2_bn1"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block2_bn1"
+  output: "block3_block2_bn1"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block3_block2_bn1"
+  input: "block3_block2_conv2_w"
+  input: "block3_block2_conv2_b"
+  output: "block3_block2_conv2"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 1
+  }
+  arg {
+    name: "kernel"
+    i: 3
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block2_conv2"
+  input: "block3_block2_bn2_scale"
+  input: "block3_block2_bn2_bias"
+  input: "block3_block2_bn2_mean"
+  input: "block3_block2_bn2_var"
+  output: "block3_block2_bn2"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block2_bn2"
+  output: "block3_block2_bn2"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block3_block2_bn2"
+  input: "block3_block2_conv3_w"
+  input: "block3_block2_conv3_b"
+  output: "block3_block2_conv3"
+  type: "Conv"
+  arg {
+    name: "stride"
+    i: 1
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 1
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block2_conv3"
+  input: "block3_block2_bn3_scale"
+  input: "block3_block2_bn3_bias"
+  input: "block3_block2_bn3_mean"
+  input: "block3_block2_bn3_var"
+  output: "block3_block2_bn3"
+  type: "SpatialBN"
+  arg {
+    name: "is_test"
+    i: 1
+  }
+  arg {
+    name: "epsilon"
+    f: 1e-05
+  }
+  arg {
+    name: "momentum"
+    f: 0.9
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+}
+op {
+  input: "block3_block2_bn3"
+  input: "block3_block2"
+  output: "block4"
+  type: "Sum"
+}
+op {
+  input: "block4"
+  output: "block4"
+  type: "LeakyRelu"
+  arg {
+    name: "alpha"
+    f: 0.2
+  }
+}
+op {
+  input: "block4"
+  output: "avg"
+  type: "AveragePool"
+  arg {
+    name: "stride"
+    i: 7
+  }
+  arg {
+    name: "pad"
+    i: 0
+  }
+  arg {
+    name: "kernel"
+    i: 7
+  }
+  arg {
+    name: "order"
+    s: "NCHW"
+  }
+  arg {
+    name: "legacy_pad"
+    i: 3
+  }
+}
+op {
+  input: "avg"
+  output: "avg_reshaped"
+  output: "avg_reshaped_shape"
+  type: "Reshape"
+  arg {
+    name: "shape"
+    ints: 10
+    ints: -1
+  }
+}
+op {
+  input: "avg_reshaped"
+  input: "predict_w"
+  input: "predict_b"
+  output: "predict"
+  type: "FC"
+}
+external_input: "data"
+external_input: "conv1_w"
+external_input: "conv1_b"
+external_input: "bn1_scale"
+external_input: "bn1_bias"
+external_input: "bn1_mean"
+external_input: "bn1_var"
+external_input: "pool1_conv1_w"
+external_input: "pool1_conv1_b"
+external_input: "pool1_bn1_scale"
+external_input: "pool1_bn1_bias"
+external_input: "pool1_bn1_mean"
+external_input: "pool1_bn1_var"
+external_input: "pool1_conv2_w"
+external_input: "pool1_conv2_b"
+external_input: "pool1_bn2_scale"
+external_input: "pool1_bn2_bias"
+external_input: "pool1_bn2_mean"
+external_input: "pool1_bn2_var"
+external_input: "pool1_conv3_w"
+external_input: "pool1_conv3_b"
+external_input: "pool1_bn3_scale"
+external_input: "pool1_bn3_bias"
+external_input: "pool1_bn3_mean"
+external_input: "pool1_bn3_var"
+external_input: "pool1_res_conv_w"
+external_input: "pool1_res_conv_b"
+external_input: "pool1_res_bn_scale"
+external_input: "pool1_res_bn_bias"
+external_input: "pool1_res_bn_mean"
+external_input: "pool1_res_bn_var"
+external_input: "pool1_block1_conv1_w"
+external_input: "pool1_block1_conv1_b"
+external_input: "pool1_block1_bn1_scale"
+external_input: "pool1_block1_bn1_bias"
+external_input: "pool1_block1_bn1_mean"
+external_input: "pool1_block1_bn1_var"
+external_input: "pool1_block1_conv2_w"
+external_input: "pool1_block1_conv2_b"
+external_input: "pool1_block1_bn2_scale"
+external_input: "pool1_block1_bn2_bias"
+external_input: "pool1_block1_bn2_mean"
+external_input: "pool1_block1_bn2_var"
+external_input: "pool1_block1_conv3_w"
+external_input: "pool1_block1_conv3_b"
+external_input: "pool1_block1_bn3_scale"
+external_input: "pool1_block1_bn3_bias"
+external_input: "pool1_block1_bn3_mean"
+external_input: "pool1_block1_bn3_var"
+external_input: "pool1_block2_conv1_w"
+external_input: "pool1_block2_conv1_b"
+external_input: "pool1_block2_bn1_scale"
+external_input: "pool1_block2_bn1_bias"
+external_input: "pool1_block2_bn1_mean"
+external_input: "pool1_block2_bn1_var"
+external_input: "pool1_block2_conv2_w"
+external_input: "pool1_block2_conv2_b"
+external_input: "pool1_block2_bn2_scale"
+external_input: "pool1_block2_bn2_bias"
+external_input: "pool1_block2_bn2_mean"
+external_input: "pool1_block2_bn2_var"
+external_input: "pool1_block2_conv3_w"
+external_input: "pool1_block2_conv3_b"
+external_input: "pool1_block2_bn3_scale"
+external_input: "pool1_block2_bn3_bias"
+external_input: "pool1_block2_bn3_mean"
+external_input: "pool1_block2_bn3_var"
+external_input: "block1_conv1_w"
+external_input: "block1_conv1_b"
+external_input: "block1_bn1_scale"
+external_input: "block1_bn1_bias"
+external_input: "block1_bn1_mean"
+external_input: "block1_bn1_var"
+external_input: "block1_conv2_w"
+external_input: "block1_conv2_b"
+external_input: "block1_bn2_scale"
+external_input: "block1_bn2_bias"
+external_input: "block1_bn2_mean"
+external_input: "block1_bn2_var"
+external_input: "block1_conv3_w"
+external_input: "block1_conv3_b"
+external_input: "block1_bn3_scale"
+external_input: "block1_bn3_bias"
+external_input: "block1_bn3_mean"
+external_input: "block1_bn3_var"
+external_input: "block1_res_conv_w"
+external_input: "block1_res_conv_b"
+external_input: "block1_res_bn_scale"
+external_input: "block1_res_bn_bias"
+external_input: "block1_res_bn_mean"
+external_input: "block1_res_bn_var"
+external_input: "block1_block1_conv1_w"
+external_input: "block1_block1_conv1_b"
+external_input: "block1_block1_bn1_scale"
+external_input: "block1_block1_bn1_bias"
+external_input: "block1_block1_bn1_mean"
+external_input: "block1_block1_bn1_var"
+external_input: "block1_block1_conv2_w"
+external_input: "block1_block1_conv2_b"
+external_input: "block1_block1_bn2_scale"
+external_input: "block1_block1_bn2_bias"
+external_input: "block1_block1_bn2_mean"
+external_input: "block1_block1_bn2_var"
+external_input: "block1_block1_conv3_w"
+external_input: "block1_block1_conv3_b"
+external_input: "block1_block1_bn3_scale"
+external_input: "block1_block1_bn3_bias"
+external_input: "block1_block1_bn3_mean"
+external_input: "block1_block1_bn3_var"
+external_input: "block1_block2_conv1_w"
+external_input: "block1_block2_conv1_b"
+external_input: "block1_block2_bn1_scale"
+external_input: "block1_block2_bn1_bias"
+external_input: "block1_block2_bn1_mean"
+external_input: "block1_block2_bn1_var"
+external_input: "block1_block2_conv2_w"
+external_input: "block1_block2_conv2_b"
+external_input: "block1_block2_bn2_scale"
+external_input: "block1_block2_bn2_bias"
+external_input: "block1_block2_bn2_mean"
+external_input: "block1_block2_bn2_var"
+external_input: "block1_block2_conv3_w"
+external_input: "block1_block2_conv3_b"
+external_input: "block1_block2_bn3_scale"
+external_input: "block1_block2_bn3_bias"
+external_input: "block1_block2_bn3_mean"
+external_input: "block1_block2_bn3_var"
+external_input: "block1_block3_conv1_w"
+external_input: "block1_block3_conv1_b"
+external_input: "block1_block3_bn1_scale"
+external_input: "block1_block3_bn1_bias"
+external_input: "block1_block3_bn1_mean"
+external_input: "block1_block3_bn1_var"
+external_input: "block1_block3_conv2_w"
+external_input: "block1_block3_conv2_b"
+external_input: "block1_block3_bn2_scale"
+external_input: "block1_block3_bn2_bias"
+external_input: "block1_block3_bn2_mean"
+external_input: "block1_block3_bn2_var"
+external_input: "block1_block3_conv3_w"
+external_input: "block1_block3_conv3_b"
+external_input: "block1_block3_bn3_scale"
+external_input: "block1_block3_bn3_bias"
+external_input: "block1_block3_bn3_mean"
+external_input: "block1_block3_bn3_var"
+external_input: "block1_block4_conv1_w"
+external_input: "block1_block4_conv1_b"
+external_input: "block1_block4_bn1_scale"
+external_input: "block1_block4_bn1_bias"
+external_input: "block1_block4_bn1_mean"
+external_input: "block1_block4_bn1_var"
+external_input: "block1_block4_conv2_w"
+external_input: "block1_block4_conv2_b"
+external_input: "block1_block4_bn2_scale"
+external_input: "block1_block4_bn2_bias"
+external_input: "block1_block4_bn2_mean"
+external_input: "block1_block4_bn2_var"
+external_input: "block1_block4_conv3_w"
+external_input: "block1_block4_conv3_b"
+external_input: "block1_block4_bn3_scale"
+external_input: "block1_block4_bn3_bias"
+external_input: "block1_block4_bn3_mean"
+external_input: "block1_block4_bn3_var"
+external_input: "block1_block5_conv1_w"
+external_input: "block1_block5_conv1_b"
+external_input: "block1_block5_bn1_scale"
+external_input: "block1_block5_bn1_bias"
+external_input: "block1_block5_bn1_mean"
+external_input: "block1_block5_bn1_var"
+external_input: "block1_block5_conv2_w"
+external_input: "block1_block5_conv2_b"
+external_input: "block1_block5_bn2_scale"
+external_input: "block1_block5_bn2_bias"
+external_input: "block1_block5_bn2_mean"
+external_input: "block1_block5_bn2_var"
+external_input: "block1_block5_conv3_w"
+external_input: "block1_block5_conv3_b"
+external_input: "block1_block5_bn3_scale"
+external_input: "block1_block5_bn3_bias"
+external_input: "block1_block5_bn3_mean"
+external_input: "block1_block5_bn3_var"
+external_input: "block1_block6_conv1_w"
+external_input: "block1_block6_conv1_b"
+external_input: "block1_block6_bn1_scale"
+external_input: "block1_block6_bn1_bias"
+external_input: "block1_block6_bn1_mean"
+external_input: "block1_block6_bn1_var"
+external_input: "block1_block6_conv2_w"
+external_input: "block1_block6_conv2_b"
+external_input: "block1_block6_bn2_scale"
+external_input: "block1_block6_bn2_bias"
+external_input: "block1_block6_bn2_mean"
+external_input: "block1_block6_bn2_var"
+external_input: "block1_block6_conv3_w"
+external_input: "block1_block6_conv3_b"
+external_input: "block1_block6_bn3_scale"
+external_input: "block1_block6_bn3_bias"
+external_input: "block1_block6_bn3_mean"
+external_input: "block1_block6_bn3_var"
+external_input: "block1_block7_conv1_w"
+external_input: "block1_block7_conv1_b"
+external_input: "block1_block7_bn1_scale"
+external_input: "block1_block7_bn1_bias"
+external_input: "block1_block7_bn1_mean"
+external_input: "block1_block7_bn1_var"
+external_input: "block1_block7_conv2_w"
+external_input: "block1_block7_conv2_b"
+external_input: "block1_block7_bn2_scale"
+external_input: "block1_block7_bn2_bias"
+external_input: "block1_block7_bn2_mean"
+external_input: "block1_block7_bn2_var"
+external_input: "block1_block7_conv3_w"
+external_input: "block1_block7_conv3_b"
+external_input: "block1_block7_bn3_scale"
+external_input: "block1_block7_bn3_bias"
+external_input: "block1_block7_bn3_mean"
+external_input: "block1_block7_bn3_var"
+external_input: "block2_conv1_w"
+external_input: "block2_conv1_b"
+external_input: "block2_bn1_scale"
+external_input: "block2_bn1_bias"
+external_input: "block2_bn1_mean"
+external_input: "block2_bn1_var"
+external_input: "block2_conv2_w"
+external_input: "block2_conv2_b"
+external_input: "block2_bn2_scale"
+external_input: "block2_bn2_bias"
+external_input: "block2_bn2_mean"
+external_input: "block2_bn2_var"
+external_input: "block2_conv3_w"
+external_input: "block2_conv3_b"
+external_input: "block2_bn3_scale"
+external_input: "block2_bn3_bias"
+external_input: "block2_bn3_mean"
+external_input: "block2_bn3_var"
+external_input: "block2_res_conv_w"
+external_input: "block2_res_conv_b"
+external_input: "block2_res_bn_scale"
+external_input: "block2_res_bn_bias"
+external_input: "block2_res_bn_mean"
+external_input: "block2_res_bn_var"
+external_input: "block2_block1_conv1_w"
+external_input: "block2_block1_conv1_b"
+external_input: "block2_block1_bn1_scale"
+external_input: "block2_block1_bn1_bias"
+external_input: "block2_block1_bn1_mean"
+external_input: "block2_block1_bn1_var"
+external_input: "block2_block1_conv2_w"
+external_input: "block2_block1_conv2_b"
+external_input: "block2_block1_bn2_scale"
+external_input: "block2_block1_bn2_bias"
+external_input: "block2_block1_bn2_mean"
+external_input: "block2_block1_bn2_var"
+external_input: "block2_block1_conv3_w"
+external_input: "block2_block1_conv3_b"
+external_input: "block2_block1_bn3_scale"
+external_input: "block2_block1_bn3_bias"
+external_input: "block2_block1_bn3_mean"
+external_input: "block2_block1_bn3_var"
+external_input: "block2_block2_conv1_w"
+external_input: "block2_block2_conv1_b"
+external_input: "block2_block2_bn1_scale"
+external_input: "block2_block2_bn1_bias"
+external_input: "block2_block2_bn1_mean"
+external_input: "block2_block2_bn1_var"
+external_input: "block2_block2_conv2_w"
+external_input: "block2_block2_conv2_b"
+external_input: "block2_block2_bn2_scale"
+external_input: "block2_block2_bn2_bias"
+external_input: "block2_block2_bn2_mean"
+external_input: "block2_block2_bn2_var"
+external_input: "block2_block2_conv3_w"
+external_input: "block2_block2_conv3_b"
+external_input: "block2_block2_bn3_scale"
+external_input: "block2_block2_bn3_bias"
+external_input: "block2_block2_bn3_mean"
+external_input: "block2_block2_bn3_var"
+external_input: "block2_block3_conv1_w"
+external_input: "block2_block3_conv1_b"
+external_input: "block2_block3_bn1_scale"
+external_input: "block2_block3_bn1_bias"
+external_input: "block2_block3_bn1_mean"
+external_input: "block2_block3_bn1_var"
+external_input: "block2_block3_conv2_w"
+external_input: "block2_block3_conv2_b"
+external_input: "block2_block3_bn2_scale"
+external_input: "block2_block3_bn2_bias"
+external_input: "block2_block3_bn2_mean"
+external_input: "block2_block3_bn2_var"
+external_input: "block2_block3_conv3_w"
+external_input: "block2_block3_conv3_b"
+external_input: "block2_block3_bn3_scale"
+external_input: "block2_block3_bn3_bias"
+external_input: "block2_block3_bn3_mean"
+external_input: "block2_block3_bn3_var"
+external_input: "block2_block4_conv1_w"
+external_input: "block2_block4_conv1_b"
+external_input: "block2_block4_bn1_scale"
+external_input: "block2_block4_bn1_bias"
+external_input: "block2_block4_bn1_mean"
+external_input: "block2_block4_bn1_var"
+external_input: "block2_block4_conv2_w"
+external_input: "block2_block4_conv2_b"
+external_input: "block2_block4_bn2_scale"
+external_input: "block2_block4_bn2_bias"
+external_input: "block2_block4_bn2_mean"
+external_input: "block2_block4_bn2_var"
+external_input: "block2_block4_conv3_w"
+external_input: "block2_block4_conv3_b"
+external_input: "block2_block4_bn3_scale"
+external_input: "block2_block4_bn3_bias"
+external_input: "block2_block4_bn3_mean"
+external_input: "block2_block4_bn3_var"
+external_input: "block2_block5_conv1_w"
+external_input: "block2_block5_conv1_b"
+external_input: "block2_block5_bn1_scale"
+external_input: "block2_block5_bn1_bias"
+external_input: "block2_block5_bn1_mean"
+external_input: "block2_block5_bn1_var"
+external_input: "block2_block5_conv2_w"
+external_input: "block2_block5_conv2_b"
+external_input: "block2_block5_bn2_scale"
+external_input: "block2_block5_bn2_bias"
+external_input: "block2_block5_bn2_mean"
+external_input: "block2_block5_bn2_var"
+external_input: "block2_block5_conv3_w"
+external_input: "block2_block5_conv3_b"
+external_input: "block2_block5_bn3_scale"
+external_input: "block2_block5_bn3_bias"
+external_input: "block2_block5_bn3_mean"
+external_input: "block2_block5_bn3_var"
+external_input: "block2_block6_conv1_w"
+external_input: "block2_block6_conv1_b"
+external_input: "block2_block6_bn1_scale"
+external_input: "block2_block6_bn1_bias"
+external_input: "block2_block6_bn1_mean"
+external_input: "block2_block6_bn1_var"
+external_input: "block2_block6_conv2_w"
+external_input: "block2_block6_conv2_b"
+external_input: "block2_block6_bn2_scale"
+external_input: "block2_block6_bn2_bias"
+external_input: "block2_block6_bn2_mean"
+external_input: "block2_block6_bn2_var"
+external_input: "block2_block6_conv3_w"
+external_input: "block2_block6_conv3_b"
+external_input: "block2_block6_bn3_scale"
+external_input: "block2_block6_bn3_bias"
+external_input: "block2_block6_bn3_mean"
+external_input: "block2_block6_bn3_var"
+external_input: "block2_block7_conv1_w"
+external_input: "block2_block7_conv1_b"
+external_input: "block2_block7_bn1_scale"
+external_input: "block2_block7_bn1_bias"
+external_input: "block2_block7_bn1_mean"
+external_input: "block2_block7_bn1_var"
+external_input: "block2_block7_conv2_w"
+external_input: "block2_block7_conv2_b"
+external_input: "block2_block7_bn2_scale"
+external_input: "block2_block7_bn2_bias"
+external_input: "block2_block7_bn2_mean"
+external_input: "block2_block7_bn2_var"
+external_input: "block2_block7_conv3_w"
+external_input: "block2_block7_conv3_b"
+external_input: "block2_block7_bn3_scale"
+external_input: "block2_block7_bn3_bias"
+external_input: "block2_block7_bn3_mean"
+external_input: "block2_block7_bn3_var"
+external_input: "block2_block8_conv1_w"
+external_input: "block2_block8_conv1_b"
+external_input: "block2_block8_bn1_scale"
+external_input: "block2_block8_bn1_bias"
+external_input: "block2_block8_bn1_mean"
+external_input: "block2_block8_bn1_var"
+external_input: "block2_block8_conv2_w"
+external_input: "block2_block8_conv2_b"
+external_input: "block2_block8_bn2_scale"
+external_input: "block2_block8_bn2_bias"
+external_input: "block2_block8_bn2_mean"
+external_input: "block2_block8_bn2_var"
+external_input: "block2_block8_conv3_w"
+external_input: "block2_block8_conv3_b"
+external_input: "block2_block8_bn3_scale"
+external_input: "block2_block8_bn3_bias"
+external_input: "block2_block8_bn3_mean"
+external_input: "block2_block8_bn3_var"
+external_input: "block2_block9_conv1_w"
+external_input: "block2_block9_conv1_b"
+external_input: "block2_block9_bn1_scale"
+external_input: "block2_block9_bn1_bias"
+external_input: "block2_block9_bn1_mean"
+external_input: "block2_block9_bn1_var"
+external_input: "block2_block9_conv2_w"
+external_input: "block2_block9_conv2_b"
+external_input: "block2_block9_bn2_scale"
+external_input: "block2_block9_bn2_bias"
+external_input: "block2_block9_bn2_mean"
+external_input: "block2_block9_bn2_var"
+external_input: "block2_block9_conv3_w"
+external_input: "block2_block9_conv3_b"
+external_input: "block2_block9_bn3_scale"
+external_input: "block2_block9_bn3_bias"
+external_input: "block2_block9_bn3_mean"
+external_input: "block2_block9_bn3_var"
+external_input: "block2_block10_conv1_w"
+external_input: "block2_block10_conv1_b"
+external_input: "block2_block10_bn1_scale"
+external_input: "block2_block10_bn1_bias"
+external_input: "block2_block10_bn1_mean"
+external_input: "block2_block10_bn1_var"
+external_input: "block2_block10_conv2_w"
+external_input: "block2_block10_conv2_b"
+external_input: "block2_block10_bn2_scale"
+external_input: "block2_block10_bn2_bias"
+external_input: "block2_block10_bn2_mean"
+external_input: "block2_block10_bn2_var"
+external_input: "block2_block10_conv3_w"
+external_input: "block2_block10_conv3_b"
+external_input: "block2_block10_bn3_scale"
+external_input: "block2_block10_bn3_bias"
+external_input: "block2_block10_bn3_mean"
+external_input: "block2_block10_bn3_var"
+external_input: "block2_block11_conv1_w"
+external_input: "block2_block11_conv1_b"
+external_input: "block2_block11_bn1_scale"
+external_input: "block2_block11_bn1_bias"
+external_input: "block2_block11_bn1_mean"
+external_input: "block2_block11_bn1_var"
+external_input: "block2_block11_conv2_w"
+external_input: "block2_block11_conv2_b"
+external_input: "block2_block11_bn2_scale"
+external_input: "block2_block11_bn2_bias"
+external_input: "block2_block11_bn2_mean"
+external_input: "block2_block11_bn2_var"
+external_input: "block2_block11_conv3_w"
+external_input: "block2_block11_conv3_b"
+external_input: "block2_block11_bn3_scale"
+external_input: "block2_block11_bn3_bias"
+external_input: "block2_block11_bn3_mean"
+external_input: "block2_block11_bn3_var"
+external_input: "block2_block12_conv1_w"
+external_input: "block2_block12_conv1_b"
+external_input: "block2_block12_bn1_scale"
+external_input: "block2_block12_bn1_bias"
+external_input: "block2_block12_bn1_mean"
+external_input: "block2_block12_bn1_var"
+external_input: "block2_block12_conv2_w"
+external_input: "block2_block12_conv2_b"
+external_input: "block2_block12_bn2_scale"
+external_input: "block2_block12_bn2_bias"
+external_input: "block2_block12_bn2_mean"
+external_input: "block2_block12_bn2_var"
+external_input: "block2_block12_conv3_w"
+external_input: "block2_block12_conv3_b"
+external_input: "block2_block12_bn3_scale"
+external_input: "block2_block12_bn3_bias"
+external_input: "block2_block12_bn3_mean"
+external_input: "block2_block12_bn3_var"
+external_input: "block2_block13_conv1_w"
+external_input: "block2_block13_conv1_b"
+external_input: "block2_block13_bn1_scale"
+external_input: "block2_block13_bn1_bias"
+external_input: "block2_block13_bn1_mean"
+external_input: "block2_block13_bn1_var"
+external_input: "block2_block13_conv2_w"
+external_input: "block2_block13_conv2_b"
+external_input: "block2_block13_bn2_scale"
+external_input: "block2_block13_bn2_bias"
+external_input: "block2_block13_bn2_mean"
+external_input: "block2_block13_bn2_var"
+external_input: "block2_block13_conv3_w"
+external_input: "block2_block13_conv3_b"
+external_input: "block2_block13_bn3_scale"
+external_input: "block2_block13_bn3_bias"
+external_input: "block2_block13_bn3_mean"
+external_input: "block2_block13_bn3_var"
+external_input: "block2_block14_conv1_w"
+external_input: "block2_block14_conv1_b"
+external_input: "block2_block14_bn1_scale"
+external_input: "block2_block14_bn1_bias"
+external_input: "block2_block14_bn1_mean"
+external_input: "block2_block14_bn1_var"
+external_input: "block2_block14_conv2_w"
+external_input: "block2_block14_conv2_b"
+external_input: "block2_block14_bn2_scale"
+external_input: "block2_block14_bn2_bias"
+external_input: "block2_block14_bn2_mean"
+external_input: "block2_block14_bn2_var"
+external_input: "block2_block14_conv3_w"
+external_input: "block2_block14_conv3_b"
+external_input: "block2_block14_bn3_scale"
+external_input: "block2_block14_bn3_bias"
+external_input: "block2_block14_bn3_mean"
+external_input: "block2_block14_bn3_var"
+external_input: "block2_block15_conv1_w"
+external_input: "block2_block15_conv1_b"
+external_input: "block2_block15_bn1_scale"
+external_input: "block2_block15_bn1_bias"
+external_input: "block2_block15_bn1_mean"
+external_input: "block2_block15_bn1_var"
+external_input: "block2_block15_conv2_w"
+external_input: "block2_block15_conv2_b"
+external_input: "block2_block15_bn2_scale"
+external_input: "block2_block15_bn2_bias"
+external_input: "block2_block15_bn2_mean"
+external_input: "block2_block15_bn2_var"
+external_input: "block2_block15_conv3_w"
+external_input: "block2_block15_conv3_b"
+external_input: "block2_block15_bn3_scale"
+external_input: "block2_block15_bn3_bias"
+external_input: "block2_block15_bn3_mean"
+external_input: "block2_block15_bn3_var"
+external_input: "block2_block16_conv1_w"
+external_input: "block2_block16_conv1_b"
+external_input: "block2_block16_bn1_scale"
+external_input: "block2_block16_bn1_bias"
+external_input: "block2_block16_bn1_mean"
+external_input: "block2_block16_bn1_var"
+external_input: "block2_block16_conv2_w"
+external_input: "block2_block16_conv2_b"
+external_input: "block2_block16_bn2_scale"
+external_input: "block2_block16_bn2_bias"
+external_input: "block2_block16_bn2_mean"
+external_input: "block2_block16_bn2_var"
+external_input: "block2_block16_conv3_w"
+external_input: "block2_block16_conv3_b"
+external_input: "block2_block16_bn3_scale"
+external_input: "block2_block16_bn3_bias"
+external_input: "block2_block16_bn3_mean"
+external_input: "block2_block16_bn3_var"
+external_input: "block2_block17_conv1_w"
+external_input: "block2_block17_conv1_b"
+external_input: "block2_block17_bn1_scale"
+external_input: "block2_block17_bn1_bias"
+external_input: "block2_block17_bn1_mean"
+external_input: "block2_block17_bn1_var"
+external_input: "block2_block17_conv2_w"
+external_input: "block2_block17_conv2_b"
+external_input: "block2_block17_bn2_scale"
+external_input: "block2_block17_bn2_bias"
+external_input: "block2_block17_bn2_mean"
+external_input: "block2_block17_bn2_var"
+external_input: "block2_block17_conv3_w"
+external_input: "block2_block17_conv3_b"
+external_input: "block2_block17_bn3_scale"
+external_input: "block2_block17_bn3_bias"
+external_input: "block2_block17_bn3_mean"
+external_input: "block2_block17_bn3_var"
+external_input: "block2_block18_conv1_w"
+external_input: "block2_block18_conv1_b"
+external_input: "block2_block18_bn1_scale"
+external_input: "block2_block18_bn1_bias"
+external_input: "block2_block18_bn1_mean"
+external_input: "block2_block18_bn1_var"
+external_input: "block2_block18_conv2_w"
+external_input: "block2_block18_conv2_b"
+external_input: "block2_block18_bn2_scale"
+external_input: "block2_block18_bn2_bias"
+external_input: "block2_block18_bn2_mean"
+external_input: "block2_block18_bn2_var"
+external_input: "block2_block18_conv3_w"
+external_input: "block2_block18_conv3_b"
+external_input: "block2_block18_bn3_scale"
+external_input: "block2_block18_bn3_bias"
+external_input: "block2_block18_bn3_mean"
+external_input: "block2_block18_bn3_var"
+external_input: "block2_block19_conv1_w"
+external_input: "block2_block19_conv1_b"
+external_input: "block2_block19_bn1_scale"
+external_input: "block2_block19_bn1_bias"
+external_input: "block2_block19_bn1_mean"
+external_input: "block2_block19_bn1_var"
+external_input: "block2_block19_conv2_w"
+external_input: "block2_block19_conv2_b"
+external_input: "block2_block19_bn2_scale"
+external_input: "block2_block19_bn2_bias"
+external_input: "block2_block19_bn2_mean"
+external_input: "block2_block19_bn2_var"
+external_input: "block2_block19_conv3_w"
+external_input: "block2_block19_conv3_b"
+external_input: "block2_block19_bn3_scale"
+external_input: "block2_block19_bn3_bias"
+external_input: "block2_block19_bn3_mean"
+external_input: "block2_block19_bn3_var"
+external_input: "block2_block20_conv1_w"
+external_input: "block2_block20_conv1_b"
+external_input: "block2_block20_bn1_scale"
+external_input: "block2_block20_bn1_bias"
+external_input: "block2_block20_bn1_mean"
+external_input: "block2_block20_bn1_var"
+external_input: "block2_block20_conv2_w"
+external_input: "block2_block20_conv2_b"
+external_input: "block2_block20_bn2_scale"
+external_input: "block2_block20_bn2_bias"
+external_input: "block2_block20_bn2_mean"
+external_input: "block2_block20_bn2_var"
+external_input: "block2_block20_conv3_w"
+external_input: "block2_block20_conv3_b"
+external_input: "block2_block20_bn3_scale"
+external_input: "block2_block20_bn3_bias"
+external_input: "block2_block20_bn3_mean"
+external_input: "block2_block20_bn3_var"
+external_input: "block2_block21_conv1_w"
+external_input: "block2_block21_conv1_b"
+external_input: "block2_block21_bn1_scale"
+external_input: "block2_block21_bn1_bias"
+external_input: "block2_block21_bn1_mean"
+external_input: "block2_block21_bn1_var"
+external_input: "block2_block21_conv2_w"
+external_input: "block2_block21_conv2_b"
+external_input: "block2_block21_bn2_scale"
+external_input: "block2_block21_bn2_bias"
+external_input: "block2_block21_bn2_mean"
+external_input: "block2_block21_bn2_var"
+external_input: "block2_block21_conv3_w"
+external_input: "block2_block21_conv3_b"
+external_input: "block2_block21_bn3_scale"
+external_input: "block2_block21_bn3_bias"
+external_input: "block2_block21_bn3_mean"
+external_input: "block2_block21_bn3_var"
+external_input: "block2_block22_conv1_w"
+external_input: "block2_block22_conv1_b"
+external_input: "block2_block22_bn1_scale"
+external_input: "block2_block22_bn1_bias"
+external_input: "block2_block22_bn1_mean"
+external_input: "block2_block22_bn1_var"
+external_input: "block2_block22_conv2_w"
+external_input: "block2_block22_conv2_b"
+external_input: "block2_block22_bn2_scale"
+external_input: "block2_block22_bn2_bias"
+external_input: "block2_block22_bn2_mean"
+external_input: "block2_block22_bn2_var"
+external_input: "block2_block22_conv3_w"
+external_input: "block2_block22_conv3_b"
+external_input: "block2_block22_bn3_scale"
+external_input: "block2_block22_bn3_bias"
+external_input: "block2_block22_bn3_mean"
+external_input: "block2_block22_bn3_var"
+external_input: "block2_block23_conv1_w"
+external_input: "block2_block23_conv1_b"
+external_input: "block2_block23_bn1_scale"
+external_input: "block2_block23_bn1_bias"
+external_input: "block2_block23_bn1_mean"
+external_input: "block2_block23_bn1_var"
+external_input: "block2_block23_conv2_w"
+external_input: "block2_block23_conv2_b"
+external_input: "block2_block23_bn2_scale"
+external_input: "block2_block23_bn2_bias"
+external_input: "block2_block23_bn2_mean"
+external_input: "block2_block23_bn2_var"
+external_input: "block2_block23_conv3_w"
+external_input: "block2_block23_conv3_b"
+external_input: "block2_block23_bn3_scale"
+external_input: "block2_block23_bn3_bias"
+external_input: "block2_block23_bn3_mean"
+external_input: "block2_block23_bn3_var"
+external_input: "block2_block24_conv1_w"
+external_input: "block2_block24_conv1_b"
+external_input: "block2_block24_bn1_scale"
+external_input: "block2_block24_bn1_bias"
+external_input: "block2_block24_bn1_mean"
+external_input: "block2_block24_bn1_var"
+external_input: "block2_block24_conv2_w"
+external_input: "block2_block24_conv2_b"
+external_input: "block2_block24_bn2_scale"
+external_input: "block2_block24_bn2_bias"
+external_input: "block2_block24_bn2_mean"
+external_input: "block2_block24_bn2_var"
+external_input: "block2_block24_conv3_w"
+external_input: "block2_block24_conv3_b"
+external_input: "block2_block24_bn3_scale"
+external_input: "block2_block24_bn3_bias"
+external_input: "block2_block24_bn3_mean"
+external_input: "block2_block24_bn3_var"
+external_input: "block2_block25_conv1_w"
+external_input: "block2_block25_conv1_b"
+external_input: "block2_block25_bn1_scale"
+external_input: "block2_block25_bn1_bias"
+external_input: "block2_block25_bn1_mean"
+external_input: "block2_block25_bn1_var"
+external_input: "block2_block25_conv2_w"
+external_input: "block2_block25_conv2_b"
+external_input: "block2_block25_bn2_scale"
+external_input: "block2_block25_bn2_bias"
+external_input: "block2_block25_bn2_mean"
+external_input: "block2_block25_bn2_var"
+external_input: "block2_block25_conv3_w"
+external_input: "block2_block25_conv3_b"
+external_input: "block2_block25_bn3_scale"
+external_input: "block2_block25_bn3_bias"
+external_input: "block2_block25_bn3_mean"
+external_input: "block2_block25_bn3_var"
+external_input: "block2_block26_conv1_w"
+external_input: "block2_block26_conv1_b"
+external_input: "block2_block26_bn1_scale"
+external_input: "block2_block26_bn1_bias"
+external_input: "block2_block26_bn1_mean"
+external_input: "block2_block26_bn1_var"
+external_input: "block2_block26_conv2_w"
+external_input: "block2_block26_conv2_b"
+external_input: "block2_block26_bn2_scale"
+external_input: "block2_block26_bn2_bias"
+external_input: "block2_block26_bn2_mean"
+external_input: "block2_block26_bn2_var"
+external_input: "block2_block26_conv3_w"
+external_input: "block2_block26_conv3_b"
+external_input: "block2_block26_bn3_scale"
+external_input: "block2_block26_bn3_bias"
+external_input: "block2_block26_bn3_mean"
+external_input: "block2_block26_bn3_var"
+external_input: "block2_block27_conv1_w"
+external_input: "block2_block27_conv1_b"
+external_input: "block2_block27_bn1_scale"
+external_input: "block2_block27_bn1_bias"
+external_input: "block2_block27_bn1_mean"
+external_input: "block2_block27_bn1_var"
+external_input: "block2_block27_conv2_w"
+external_input: "block2_block27_conv2_b"
+external_input: "block2_block27_bn2_scale"
+external_input: "block2_block27_bn2_bias"
+external_input: "block2_block27_bn2_mean"
+external_input: "block2_block27_bn2_var"
+external_input: "block2_block27_conv3_w"
+external_input: "block2_block27_conv3_b"
+external_input: "block2_block27_bn3_scale"
+external_input: "block2_block27_bn3_bias"
+external_input: "block2_block27_bn3_mean"
+external_input: "block2_block27_bn3_var"
+external_input: "block2_block28_conv1_w"
+external_input: "block2_block28_conv1_b"
+external_input: "block2_block28_bn1_scale"
+external_input: "block2_block28_bn1_bias"
+external_input: "block2_block28_bn1_mean"
+external_input: "block2_block28_bn1_var"
+external_input: "block2_block28_conv2_w"
+external_input: "block2_block28_conv2_b"
+external_input: "block2_block28_bn2_scale"
+external_input: "block2_block28_bn2_bias"
+external_input: "block2_block28_bn2_mean"
+external_input: "block2_block28_bn2_var"
+external_input: "block2_block28_conv3_w"
+external_input: "block2_block28_conv3_b"
+external_input: "block2_block28_bn3_scale"
+external_input: "block2_block28_bn3_bias"
+external_input: "block2_block28_bn3_mean"
+external_input: "block2_block28_bn3_var"
+external_input: "block2_block29_conv1_w"
+external_input: "block2_block29_conv1_b"
+external_input: "block2_block29_bn1_scale"
+external_input: "block2_block29_bn1_bias"
+external_input: "block2_block29_bn1_mean"
+external_input: "block2_block29_bn1_var"
+external_input: "block2_block29_conv2_w"
+external_input: "block2_block29_conv2_b"
+external_input: "block2_block29_bn2_scale"
+external_input: "block2_block29_bn2_bias"
+external_input: "block2_block29_bn2_mean"
+external_input: "block2_block29_bn2_var"
+external_input: "block2_block29_conv3_w"
+external_input: "block2_block29_conv3_b"
+external_input: "block2_block29_bn3_scale"
+external_input: "block2_block29_bn3_bias"
+external_input: "block2_block29_bn3_mean"
+external_input: "block2_block29_bn3_var"
+external_input: "block2_block30_conv1_w"
+external_input: "block2_block30_conv1_b"
+external_input: "block2_block30_bn1_scale"
+external_input: "block2_block30_bn1_bias"
+external_input: "block2_block30_bn1_mean"
+external_input: "block2_block30_bn1_var"
+external_input: "block2_block30_conv2_w"
+external_input: "block2_block30_conv2_b"
+external_input: "block2_block30_bn2_scale"
+external_input: "block2_block30_bn2_bias"
+external_input: "block2_block30_bn2_mean"
+external_input: "block2_block30_bn2_var"
+external_input: "block2_block30_conv3_w"
+external_input: "block2_block30_conv3_b"
+external_input: "block2_block30_bn3_scale"
+external_input: "block2_block30_bn3_bias"
+external_input: "block2_block30_bn3_mean"
+external_input: "block2_block30_bn3_var"
+external_input: "block2_block31_conv1_w"
+external_input: "block2_block31_conv1_b"
+external_input: "block2_block31_bn1_scale"
+external_input: "block2_block31_bn1_bias"
+external_input: "block2_block31_bn1_mean"
+external_input: "block2_block31_bn1_var"
+external_input: "block2_block31_conv2_w"
+external_input: "block2_block31_conv2_b"
+external_input: "block2_block31_bn2_scale"
+external_input: "block2_block31_bn2_bias"
+external_input: "block2_block31_bn2_mean"
+external_input: "block2_block31_bn2_var"
+external_input: "block2_block31_conv3_w"
+external_input: "block2_block31_conv3_b"
+external_input: "block2_block31_bn3_scale"
+external_input: "block2_block31_bn3_bias"
+external_input: "block2_block31_bn3_mean"
+external_input: "block2_block31_bn3_var"
+external_input: "block2_block32_conv1_w"
+external_input: "block2_block32_conv1_b"
+external_input: "block2_block32_bn1_scale"
+external_input: "block2_block32_bn1_bias"
+external_input: "block2_block32_bn1_mean"
+external_input: "block2_block32_bn1_var"
+external_input: "block2_block32_conv2_w"
+external_input: "block2_block32_conv2_b"
+external_input: "block2_block32_bn2_scale"
+external_input: "block2_block32_bn2_bias"
+external_input: "block2_block32_bn2_mean"
+external_input: "block2_block32_bn2_var"
+external_input: "block2_block32_conv3_w"
+external_input: "block2_block32_conv3_b"
+external_input: "block2_block32_bn3_scale"
+external_input: "block2_block32_bn3_bias"
+external_input: "block2_block32_bn3_mean"
+external_input: "block2_block32_bn3_var"
+external_input: "block2_block33_conv1_w"
+external_input: "block2_block33_conv1_b"
+external_input: "block2_block33_bn1_scale"
+external_input: "block2_block33_bn1_bias"
+external_input: "block2_block33_bn1_mean"
+external_input: "block2_block33_bn1_var"
+external_input: "block2_block33_conv2_w"
+external_input: "block2_block33_conv2_b"
+external_input: "block2_block33_bn2_scale"
+external_input: "block2_block33_bn2_bias"
+external_input: "block2_block33_bn2_mean"
+external_input: "block2_block33_bn2_var"
+external_input: "block2_block33_conv3_w"
+external_input: "block2_block33_conv3_b"
+external_input: "block2_block33_bn3_scale"
+external_input: "block2_block33_bn3_bias"
+external_input: "block2_block33_bn3_mean"
+external_input: "block2_block33_bn3_var"
+external_input: "block2_block34_conv1_w"
+external_input: "block2_block34_conv1_b"
+external_input: "block2_block34_bn1_scale"
+external_input: "block2_block34_bn1_bias"
+external_input: "block2_block34_bn1_mean"
+external_input: "block2_block34_bn1_var"
+external_input: "block2_block34_conv2_w"
+external_input: "block2_block34_conv2_b"
+external_input: "block2_block34_bn2_scale"
+external_input: "block2_block34_bn2_bias"
+external_input: "block2_block34_bn2_mean"
+external_input: "block2_block34_bn2_var"
+external_input: "block2_block34_conv3_w"
+external_input: "block2_block34_conv3_b"
+external_input: "block2_block34_bn3_scale"
+external_input: "block2_block34_bn3_bias"
+external_input: "block2_block34_bn3_mean"
+external_input: "block2_block34_bn3_var"
+external_input: "block2_block35_conv1_w"
+external_input: "block2_block35_conv1_b"
+external_input: "block2_block35_bn1_scale"
+external_input: "block2_block35_bn1_bias"
+external_input: "block2_block35_bn1_mean"
+external_input: "block2_block35_bn1_var"
+external_input: "block2_block35_conv2_w"
+external_input: "block2_block35_conv2_b"
+external_input: "block2_block35_bn2_scale"
+external_input: "block2_block35_bn2_bias"
+external_input: "block2_block35_bn2_mean"
+external_input: "block2_block35_bn2_var"
+external_input: "block2_block35_conv3_w"
+external_input: "block2_block35_conv3_b"
+external_input: "block2_block35_bn3_scale"
+external_input: "block2_block35_bn3_bias"
+external_input: "block2_block35_bn3_mean"
+external_input: "block2_block35_bn3_var"
+external_input: "block3_conv1_w"
+external_input: "block3_conv1_b"
+external_input: "block3_bn1_scale"
+external_input: "block3_bn1_bias"
+external_input: "block3_bn1_mean"
+external_input: "block3_bn1_var"
+external_input: "block3_conv2_w"
+external_input: "block3_conv2_b"
+external_input: "block3_bn2_scale"
+external_input: "block3_bn2_bias"
+external_input: "block3_bn2_mean"
+external_input: "block3_bn2_var"
+external_input: "block3_conv3_w"
+external_input: "block3_conv3_b"
+external_input: "block3_bn3_scale"
+external_input: "block3_bn3_bias"
+external_input: "block3_bn3_mean"
+external_input: "block3_bn3_var"
+external_input: "block3_res_conv_w"
+external_input: "block3_res_conv_b"
+external_input: "block3_res_bn_scale"
+external_input: "block3_res_bn_bias"
+external_input: "block3_res_bn_mean"
+external_input: "block3_res_bn_var"
+external_input: "block3_block1_conv1_w"
+external_input: "block3_block1_conv1_b"
+external_input: "block3_block1_bn1_scale"
+external_input: "block3_block1_bn1_bias"
+external_input: "block3_block1_bn1_mean"
+external_input: "block3_block1_bn1_var"
+external_input: "block3_block1_conv2_w"
+external_input: "block3_block1_conv2_b"
+external_input: "block3_block1_bn2_scale"
+external_input: "block3_block1_bn2_bias"
+external_input: "block3_block1_bn2_mean"
+external_input: "block3_block1_bn2_var"
+external_input: "block3_block1_conv3_w"
+external_input: "block3_block1_conv3_b"
+external_input: "block3_block1_bn3_scale"
+external_input: "block3_block1_bn3_bias"
+external_input: "block3_block1_bn3_mean"
+external_input: "block3_block1_bn3_var"
+external_input: "block3_block2_conv1_w"
+external_input: "block3_block2_conv1_b"
+external_input: "block3_block2_bn1_scale"
+external_input: "block3_block2_bn1_bias"
+external_input: "block3_block2_bn1_mean"
+external_input: "block3_block2_bn1_var"
+external_input: "block3_block2_conv2_w"
+external_input: "block3_block2_conv2_b"
+external_input: "block3_block2_bn2_scale"
+external_input: "block3_block2_bn2_bias"
+external_input: "block3_block2_bn2_mean"
+external_input: "block3_block2_bn2_var"
+external_input: "block3_block2_conv3_w"
+external_input: "block3_block2_conv3_b"
+external_input: "block3_block2_bn3_scale"
+external_input: "block3_block2_bn3_bias"
+external_input: "block3_block2_bn3_mean"
+external_input: "block3_block2_bn3_var"
+external_input: "predict_w"
+external_input: "predict_b"
