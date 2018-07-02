@@ -4,7 +4,7 @@ an implement of 2DFAN4 proposed in the paper ["How far are we from solving the 2
 
 ### introduction
 
-the project implements two models proposed in the paper ["How far are we from solving the 2D & 3D face alignment problem?"](https://arxiv.org/abs/1703.07332). one model is 2DFAN4 which locates 2D landmarks from RGB facial image. another model is ResNetDepth which predicts the depth in camera coordinate system from given 2D landmarks in image coordinate system and the original RGB facial image.
+the project implements two models proposed in the paper ["How far are we from solving the 2D & 3D face alignment problem?"](https://arxiv.org/abs/1703.07332). one model is 2DFAN4 which locates 2D landmarks from RGB facial image. another model is ResNetDepth which predicts the depth of landmarkers in camera coordinate system fromclues of given 2D landmarks in image coordinate system and the original RGB facial image.
 
 ### how to build
 
