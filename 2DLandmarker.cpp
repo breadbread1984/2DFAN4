@@ -76,7 +76,7 @@ int main(int argc,char ** argv)
 		imshow("debug",show);
 		waitKey();
 	} else {
-		VideoCapture vc(CV_CAP_ANY);
+		VideoCapture vc(cv::CAP_ANY);
 		if(false == vc.isOpened()) {
 			cout<<"can't open any webcam"<<endl;
 			return EXIT_FAILURE;

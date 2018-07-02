@@ -1,11 +1,11 @@
-CAFFE2_PREFIX=/home/sys411/opt/caffe2
-CAFFE2_HELPER_PREFIX=/home/sys411/opt/caffe2_helper
+CAFFE2_PREFIX=/home/xieyi/opt/pytorch
+CAFFE2_HELPER_PREFIX=/home/xieyi/opt/pytorch_helper
 CUDA_PREFIX=/usr/local/cuda
-CXXFLAGS=`pkg-config --cflags opencv dlib-1 eigen3` -I. -I${CUDA_PREFIX}/include -I${CAFFE2_PREFIX}/include \
+CXXFLAGS=`pkg-config --cflags opencv dlib-1` -I. -I${CUDA_PREFIX}/include -I${CAFFE2_PREFIX}/include \
 -I${CAFFE2_HELPER_PREFIX}/include -std=c++14 -O2 -msse3 -msse4
 LIBS= -L${CUDA_PREFIX}/lib64 -L${CAFFE2_HELPER_PREFIX}/lib -lcaffe2_cpp -lcaffe2_cpp_gpu \
--L${CAFFE2_PREFIX}/lib -lcaffe2_gpu -lcaffe2 -lcaffe2_observers -lcaffe2_protos \
-`pkg-config --libs opencv dlib-1 eigen3` \
+-L${CAFFE2_PREFIX}/lib -lcaffe2_gpu -lcaffe2 -lcaffe2_observers \
+`pkg-config --libs opencv dlib-1` \
 -lglog -lprotobuf -lcudart -lcurand \
 -lboost_filesystem -lboost_system -lboost_thread -lboost_regex -lboost_program_options -lpthread -ldl -llapack
 OBJS=$(patsubst %.cpp,%.o,$(wildcard *.cpp))
